@@ -1,0 +1,59 @@
+<c-row ngPreserveWhitespaces>
+    <c-col xs="12">
+    </c-col>
+    <c-col xs="12">
+      <c-card class="mb-4">
+        <c-card-header>
+          <c-row ngPreserveWhitespaces>
+            <c-col xs="12">
+            </c-col>
+            <c-col xs="12">
+              <c-card class="mb-4">
+                <c-card-header>
+                    <button cButton color="success" [routerLink]="['/branch/add']">Create</button>
+                      </c-card-header>
+                <c-card-body>
+                  <table cTable>
+                      <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">brancheName</th>
+                        <th scope="col">addedByUserName</th>
+                   
+                      </tr>
+                      </thead>
+                      <tbody>
+                        <ng-container *ngFor="let oneBranch of BranchesData">
+                          <tr>
+                            <th scope="row">{{oneBranch.id}}</th>
+                            <td>{{oneBranch.brancheName}}</td>
+                            <td>{{username}}</td>
+                        
+                            <td>                    
+                              <button cButton color="warning" (click)="navigateToUpdate(oneBranch.id)">Update</button>
+                              <button cButton color="danger" title="Delete" (click)="deleteUser(oneBranch)">Delete</button>
+                             
+                            </td>
+                          </tr>
+                  
+                        </ng-container>
+
+                     
+           
+            
+
+                      </tbody>
+                    </table>
+
+
+                </c-card-body>
+              </c-card>
+            </c-col>
+          </c-row>
+          
+              </c-card-header>
+       
+      </c-card>
+    </c-col>
+  </c-row>
+  

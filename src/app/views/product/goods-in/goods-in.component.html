@@ -1,0 +1,42 @@
+<c-row>
+    <c-col xs="12">
+
+        <c-card class="mb-4">
+            
+          <c-card-header ngPreserveWhitespaces>
+            <strong>Create a user</strong>
+          </c-card-header>
+
+          <!-- //cardbody -->
+          <c-card-body>
+
+            <form cForm class="row g-3">
+                <c-col [xs]="12">
+                    <label cLabel for="barcode">Carcode</label>
+                    <input cFormControl
+                            id="barcode"
+                            placeholder="Barcode"
+                            type="text"
+                    />
+                </c-col>
+
+                <c-col [xs]="12">
+                    <label cLabel for="productName">Product Name</label>
+                    <input cFormControl
+                            id="productName"
+                            placeholder="Product Name"
+                            type="text"
+                    />
+                </c-col>
+
+
+                <c-col [xs]="12">
+                    <button cButton type="submit">Add</button>
+                  </c-col>
+            </form>
+
+                
+            </c-card-body>
+        </c-card>
+    </c-col>
+</c-row>
