@@ -21,9 +21,13 @@ export class AddUserComponent implements OnInit {
 
   generatedPassword: string = ''; // Initialize your variable here to hold the generated password
   
-  constructor(private fb: FormBuilder, 
+  constructor(
+              private fb: FormBuilder, 
               private userService: UserService,
-              private branchService: BranchService,private snackBar: MatSnackBar) { }
+              private branchService: BranchService,
+              private snackBar: MatSnackBar
+              
+              ) { }
   
   ngOnInit(): void {
 

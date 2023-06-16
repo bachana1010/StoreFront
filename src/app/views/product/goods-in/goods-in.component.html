@@ -1,42 +1,42 @@
 <c-row>
     <c-col xs="12">
-
-        <c-card class="mb-4">
-            
-          <c-card-header ngPreserveWhitespaces>
-            <strong>Create a user</strong>
-          </c-card-header>
-
-          <!-- //cardbody -->
-          <c-card-body>
-
-            <form cForm class="row g-3">
-                <c-col [xs]="12">
-                    <label cLabel for="barcode">Carcode</label>
-                    <input cFormControl
-                            id="barcode"
-                            placeholder="Barcode"
-                            type="text"
-                    />
-                </c-col>
-
-                <c-col [xs]="12">
-                    <label cLabel for="productName">Product Name</label>
-                    <input cFormControl
-                            id="productName"
-                            placeholder="Product Name"
-                            type="text"
-                    />
-                </c-col>
-
-
-                <c-col [xs]="12">
-                    <button cButton type="submit">Add</button>
-                  </c-col>
-            </form>
-
-                
-            </c-card-body>
-        </c-card>
+      <c-card class="mb-4">
+        <c-card-header ngPreserveWhitespaces>
+          <strong>Add Goods</strong>
+        </c-card-header>
+        <c-card-body>
+          <form cForm class="row g-3" [formGroup]="myForm" (ngSubmit)="addBarcode(myForm)">
+            <c-col [md]="12">
+              <label cLabel for="barcode">Barcode</label>
+              <input cFormControl id="barcode" type="text" formControlName="barcode" (paste)="onPaste($event)" />
+            </c-col>
+  
+            <c-col [md]="12">
+              <label cLabel for="name">Name</label>
+              <input cFormControl id="name" type="text" formControlName="name" placeholder="Name" />
+            </c-col>
+  
+            <c-col [md]="6">
+              <label cLabel for="price">Price</label>
+              <input cFormControl id="price" type="number" step="0.01" formControlName="price" placeholder="Price" />
+            </c-col>
+  
+            <c-col [md]="6">
+              <label cLabel for="unit">Unit</label>
+              <input cFormControl id="unit" type="text" formControlName="unit" placeholder="Unit" />
+            </c-col>
+  
+            <c-col [md]="6">
+              <label cLabel for="quantity">Quantity</label>
+              <input cFormControl id="quantity" type="number" step="0.01" formControlName="quantity" placeholder="Quantity"/>
+            </c-col>
+  
+            <c-col [xs]="12">
+              <button cButton type="submit">Add</button>
+            </c-col>
+          </form>
+        </c-card-body>
+      </c-card>
     </c-col>
-</c-row>
+  </c-row>
+  
