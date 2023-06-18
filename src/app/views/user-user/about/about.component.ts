@@ -8,6 +8,7 @@ import { Users, UserApiResponse } from 'src/interfaces/users';
   templateUrl: './about.component.html',
   styleUrls: ['./about.component.scss']
 })
+
 export class AboutComponent implements OnInit {
   UsersData: Users[] = [];
 

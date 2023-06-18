@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 export class AuthService {
 
   endpoint = 'http://localhost:5043/'
+  public logoutEvent = new BehaviorSubject(false); // Add this line
 
   constructor(
     private http: HttpClient,
@@ -31,11 +32,12 @@ export class AuthService {
   
   
   logoutUser(){
-     localStorage.removeItem("Authorization")
-     localStorage.removeItem("ID"); 
+    localStorage.removeItem("Authorization")
+    localStorage.removeItem("ID"); 
 
-     this.router.navigate(["login"])
-  }
+    this.router.navigate(["login"])
+ }
+
 
   loggedIn(){
     return !!localStorage.getItem('Authorization')

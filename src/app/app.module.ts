@@ -4,6 +4,9 @@ import { BrowserModule, Title } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgScrollbarModule } from 'ngx-scrollbar';
+import { ToastrModule } from 'ngx-toastr';
+
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 // Import routing module
 import { AppRoutingModule } from './app-routing.module';
@@ -33,6 +36,7 @@ import {
   SidebarModule,
   TabsModule,
   UtilitiesModule,
+  
   
 } from '@coreui/angular';
 
@@ -85,6 +89,9 @@ const APP_CONTAINERS = [
     RouterModule,
     HttpClientModule,
     FormsModule,
+    ToastrModule.forRoot({
+      positionClass: 'toast-top-right',
+    })
     
   ],
   providers: [

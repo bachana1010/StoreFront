@@ -5,11 +5,13 @@ import { LoginRoutingModule } from './login-routing.module';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
+import { LogoutComponent } from './logout/logout.component';
 
 
 @NgModule({
   declarations: [
-    SignInComponent
+    SignInComponent,
+    LogoutComponent
   ],
   imports: [
     CommonModule,

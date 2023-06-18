@@ -10,6 +10,7 @@ import { CardModule, GridModule, NavModule, UtilitiesModule, TabsModule,TableMod
 import { IconModule } from '@coreui/icons-angular';
 import { FormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { ToastrModule } from 'ngx-toastr';
 
 
 @NgModule({
@@ -34,7 +35,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     ListGroupModule,
     FormsModule,
     ReactiveFormsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    ToastrModule
+
   ]
 })
 export class ProductModule { }

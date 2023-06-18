@@ -1,1 +1,47 @@
-<p>goods-out works!</p>
+<c-row>
+    <c-col xs="12">
+      <c-card class="mb-4">
+        <c-card-header ngPreserveWhitespaces>
+          <strong>Out Goods</strong>
+        </c-card-header>
+        <c-card-body>
+
+          <form cForm class="row g-3" [formGroup]="myForm" (ngSubmit)="GoodsOut(myForm)">
+
+            <c-col [md]="3">
+              <label cLabel for="barcode">Barcode</label>
+              <input cFormControl id="barcode" type="text" formControlName="barcode" placeholder="Barcode" (paste)="onPaste($event)"/>
+            </c-col>
+
+                    <c-col [md]="3" *ngIf="myForm.get('name').value">
+            <label cLabel for="name">Name</label>
+            <input cFormControl id="name" type="text" formControlName="name" placeholder="Name" >
+          </c-col>
+
+          <c-col [md]="3" *ngIf="myForm.get('price').value">
+            <label cLabel for="price">Price</label>
+            <input cFormControl id="price" type="text" formControlName="price" placeholder="Price"  />
+          </c-col>
+
+          <c-col [md]="3" *ngIf="myForm.get('unit').value">
+            <label cLabel for="unit">Unit</label>
+            <input cFormControl id="unit" type="text" formControlName="unit" placeholder="Unit" />
+          </c-col>  
+
+  
+            <c-col [md]="12">
+              <label cLabel for="quantity">Quantity</label>
+              <input cFormControl id="quantity" type="number" step="0.01" formControlName="quantity" placeholder="Quantity"/>
+            </c-col>
+  
+            <c-col [xs]="12">
+              <button cButton type="submit">GoodsOut</button>
+            </c-col>
+
+          </form>
+
+        </c-card-body>
+      </c-card>
+    </c-col>
+  </c-row>
+  

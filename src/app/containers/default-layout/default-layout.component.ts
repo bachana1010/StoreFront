@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/services/auth.service';
-import { loggedInNavItems, loggedOutNavItems } from './_nav';
+import { adminNavItems, operatorNavItems, managerNavItems, loggedOutNavItems } from './_nav';
 import { INavData } from '@coreui/angular';
 
 @Component({
@@ -9,19 +9,31 @@ import { INavData } from '@coreui/angular';
   styleUrls: ['./default-layout.component.scss'],
 })
 export class DefaultLayoutComponent implements OnInit {
-
   public navItems!: INavData[];
-
-  public perfectScrollbarConfig = {
-    suppressScrollX: true,
-  };
 
   constructor(public authService: AuthService) { }
 
   ngOnInit(): void {
     if (this.authService.loggedIn()) {
-      this.navItems = loggedInNavItems;
+      // Get user role from localStorage
+      const userRole = localStorage.getItem('UserRole');
+
+      switch(userRole) {
+        case 'Administrator':
+          this.navItems = adminNavItems;
+          break;
+        case 'operator':
+          this.navItems = operatorNavItems;
+          break;
+        case 'manager':
+          this.navItems = managerNavItems;
+          break;
+        default:
+          // Handle unknown role
+          console.warn(`Unknown user role: ${userRole}`);
+      }
     } else {
+      // If user is not logged in, show Login and Registration options
       this.navItems = loggedOutNavItems;
     }
   }

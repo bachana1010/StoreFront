@@ -8,7 +8,7 @@
           <form cForm class="row g-3" [formGroup]="myForm" (ngSubmit)="addBarcode(myForm)">
             <c-col [md]="12">
               <label cLabel for="barcode">Barcode</label>
-              <input cFormControl id="barcode" type="text" formControlName="barcode" (paste)="onPaste($event)" />
+              <input cFormControl id="barcode" type="text" formControlName="barcode" (paste)="onPaste($event)"  placeholder="Barcode" />
             </c-col>
   
             <c-col [md]="12">
