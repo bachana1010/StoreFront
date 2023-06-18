@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/services/auth.service';
+import { AuthService } from '../../services/auth.service';
 import { adminNavItems, operatorNavItems, managerNavItems, loggedOutNavItems } from './_nav';
 import { INavData } from '@coreui/angular';
 

@@ -43,8 +43,8 @@ import {
 import { IconModule, IconSetService } from '@coreui/icons-angular';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'; // import HTTP_INTERCEPTORS
-import { AuthService } from 'src/services/auth.service';
-import { AuthInterceptor } from 'src/interceptor/auth-interceptor.service'; // import your interceptor, adjust the path according to your file structure
+import { AuthService } from './services/auth.service';
+import { AuthInterceptor } from './interceptor/auth-interceptor.service'; // import your interceptor, adjust the path according to your file structure
 
 const APP_CONTAINERS = [
   DefaultFooterComponent,

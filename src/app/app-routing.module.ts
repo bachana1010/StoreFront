@@ -26,7 +26,7 @@ const routes: Routes = [
       {
         path: 'user',
         loadChildren: () =>
-          import('./views/user-user/user-user.module').then((m) => m.UserUserModule)
+          import('./myModule/user-user/user-user.module').then((m) => m.UserUserModule)
       },
       {
         path: 'theme',
@@ -76,13 +76,13 @@ const routes: Routes = [
       {
         path: 'branch',
         loadChildren: () =>
-        import('./views/branch/branch.module').then((m) => m.BranchModule)
+        import('./myModule/branch/branch.module').then((m) => m.BranchModule)
       },
 
       {
         path: 'products',
         loadChildren: () =>
-          import('./views/product/product.module').then((m) => m.ProductModule)
+          import('./myModule/product/product.module').then((m) => m.ProductModule)
       },
     ]
   },
@@ -103,14 +103,14 @@ const routes: Routes = [
   {
     path: 'signin',
     loadChildren: () =>
-    import('./views/login/login.module').then((m) => m.LoginModule)
+    import('./myModule/login/login.module').then((m) => m.LoginModule)
 },
 
 
   {
     path: 'signup',
     loadChildren: () =>
-    import('./views/registration/registration.module').then((m) => m.RegistrationModule)
+    import('./myModule/registration/registration.module').then((m) => m.RegistrationModule)
   },
   {path: '**', redirectTo: 'dashboard'}
 ];
