@@ -11,3 +11,16 @@ export interface managerProduct {
   
   export type managerProductApiResponse = managerProduct[];
   
+
+  export interface managerGoodSin {
+    barcodeName: string;
+    operatorUserName: string;
+    branchName: string;
+    quantity: number;
+    entryDate: Date;
+
+  }
+  
+  export type managerGoodSinApi = managerGoodSin[];
+    
+
