@@ -4,12 +4,14 @@ import { AddUserComponent } from './add-user/add-user.component';
 import { UpdateUserComponent } from './update-user/update-user.component';
 import { DeleteUserComponent } from './delete-user/delete-user.component';
 import { AboutComponent } from './about/about.component';
+import { AuthGuard } from '../../guard/auth.guard'; // import the AuthGuard
 
 const routes: Routes = [
   {
     path: '',
     data: {
       title: 'User',
+      UserRole: ['Administrator'] // Here you define which roles can access the Administrator routes
     },
     children: [
       {
@@ -18,6 +20,7 @@ const routes: Routes = [
         data: {
           title: 'about user',
         },
+        canActivate: [AuthGuard], // Add AuthGuard to protect this route
       },
       {
         path: 'add',
@@ -25,6 +28,7 @@ const routes: Routes = [
         data: {
           title: 'add user',
         },
+        canActivate: [AuthGuard], // Add AuthGuard to protect this route
       },
       {
         path: 'update/:id',
@@ -32,6 +36,7 @@ const routes: Routes = [
         data: {
           title: 'update user',
         },
+        canActivate: [AuthGuard], // Add AuthGuard to protect this route
       },
       {
         path: 'delete',
@@ -39,11 +44,11 @@ const routes: Routes = [
         data: {
           title: 'delete user',
         },
+        canActivate: [AuthGuard], // Add AuthGuard to protect this route
       }      
     ]
   },
 ];
-
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

@@ -33,6 +33,10 @@ export class GoodsOutService {
     return throwError(error.error);
 };
 
+  getGoodSOut(): Observable<any> {
+    return this.http.get(this.endpoint + 'Api/GoodsOut');
+  } 
+
 }
 
 

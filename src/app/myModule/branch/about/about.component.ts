@@ -23,8 +23,14 @@ export class AboutComponent {
 
     this.username = localStorage.getItem('username');
 
+    this.route.data.subscribe((data: any) => {
+      this.BranchesData = data.branches;
+      console.log(this.BranchesData, "resorveridan");
+    });
+    
+    
 
-    this.loadBranchData()
+    // this.loadBranchData()
   }
 
   loadBranchData() {

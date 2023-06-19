@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../../../services/product.service';
 import { managerGoodSin, managerGoodSinApi } from '../../../interfaces/managerlist';
+import { GoodsinService } from 'src/app/services/goodsin.service';
 
 @Component({
   selector: 'app-goodsin-list',
@@ -14,7 +15,7 @@ export class GoodsinListComponent implements OnInit {
   managerGoodsin: managerGoodSin[] = [];
 
   constructor(private router: Router,
-    private productService: ProductService,
+    private GoodsInservice: GoodsinService,
     private route: ActivatedRoute) { }
 
 
@@ -26,7 +27,7 @@ export class GoodsinListComponent implements OnInit {
       
       loadData() {
   
-        this.productService.getGoodSin().subscribe((response: managerGoodSinApi) => {
+        this.GoodsInservice.getGoodSin().subscribe((response: managerGoodSinApi) => {
           console.log('esaa axali responsi', response);
           this.managerGoodsin = response;  
           console.log(this.managerGoodsin);

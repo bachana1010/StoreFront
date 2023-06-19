@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { DefaultLayoutComponent } from './containers';
+import { AuthGuard } from '././guard/auth.guard';
+
 // import { Page404Component } from './views/pages/page404/page404.component';
 // import { Page500Component } from './views/pages/page500/page500.component';
 

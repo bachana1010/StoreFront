@@ -28,4 +28,8 @@ export class GoodsinService {
   getBarcode(barcodetext: string): Observable<any> {
     return this.http.get<any>(`${this.endpoint}api/GoodSin/${barcodetext}`);
   }
+
+  getGoodSin(): Observable<any> {
+    return this.http.get(this.endpoint + 'Api/GoodSin');
+  } 
 }

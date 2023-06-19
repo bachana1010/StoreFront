@@ -24,3 +24,17 @@ export interface managerProduct {
   export type managerGoodSinApi = managerGoodSin[];
     
 
+  export interface managerGoodSOut {
+    barcodeName: string;
+    operatorUserName: string;
+    branchName: string;
+    quantity: number;
+    outDate: Date;
+
+  }
+  
+  export type managerGoodSOutApi = managerGoodSOut[];
+    
+
+
+

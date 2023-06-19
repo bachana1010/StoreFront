@@ -20,7 +20,10 @@ export class ProductService {
     return this.http.get(this.endpoint + 'Api/Product/manager');
   }
 
-  getGoodSin(): Observable<any> {
-    return this.http.get(this.endpoint + 'Api/GoodSin');
-  } 
+
+
+
+
+
 }
+

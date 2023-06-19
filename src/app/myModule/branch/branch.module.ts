@@ -10,6 +10,7 @@ import { CardModule, GridModule, NavModule, UtilitiesModule, TabsModule,TableMod
 import { IconModule } from '@coreui/icons-angular';
 import { FormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { BranchDataResolverService } from 'src/app/resolvers/branch-data-resolver.service';
 
 
 @NgModule({
@@ -35,6 +36,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     FormsModule,
     ReactiveFormsModule,
     MatSnackBarModule
-  ]
+  ],
+  providers: [BranchDataResolverService] // Provide the resolver
+
 })
 export class BranchModule { }
