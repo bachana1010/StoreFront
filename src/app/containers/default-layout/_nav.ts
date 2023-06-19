@@ -16,6 +16,12 @@ export const operatorNavItems: INavData[] = [
 
 export const managerNavItems: INavData[] = [
   { name: 'Logout', url: '/signin/logout', iconComponent: { name: 'cil-star' } },
+  { name: 'productList', url: '/manager/list', iconComponent: { name: 'cil-star' } },
+  { name: 'goodsin', url: '/manager/goodsIn', iconComponent: { name: 'cil-star' } },
+  { name: 'goodsout', url: '/manager/goodsout', iconComponent: { name: 'cil-star' } }
+
+
+
 
   
 ];

@@ -13,6 +13,10 @@ export class ProductService {
   constructor(private http: HttpClient) { }
 
   getProducts(): Observable<any> {
-    return this.http.get(this.endpoint + 'Api/Product');
+    return this.http.get(this.endpoint + 'Api/Product/operator');
+  }
+
+  ManagerProducts(): Observable<any> {
+    return this.http.get(this.endpoint + 'Api/Product/manager');
   }
 }

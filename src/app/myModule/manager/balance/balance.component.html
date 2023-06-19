@@ -1,1 +1,66 @@
-<p>balance works!</p>
+<c-row ngPreserveWhitespaces>
+    <c-col xs="12">
+    </c-col>
+    <c-col xs="12">
+      <c-card class="mb-4">
+        <c-card-header>
+          <c-row ngPreserveWhitespaces>
+            <c-col xs="12">
+            </c-col>
+            <c-col xs="12">
+              <c-card class="mb-4">
+                <c-card-header>
+                    <button cButton color="success" [routerLink]="['/manager/list']">Product list Manager</button>
+                      </c-card-header>
+                <c-card-body>
+                  <table cTable>
+                      <thead>
+                      <tr>
+                        <th scope="col">#</th>
+
+                        <th scope="col">barcode</th>
+                        <th scope="col">name</th>
+                        <th scope="col">price</th>
+                        <th scope="col">quantity</th>
+                        <th scope="col">brancheName</th>
+
+                      </tr>
+                      </thead>
+                      <tbody>
+                        <ng-container *ngFor="let product of managerProduct;let i = index">
+                          <tr>
+                            <th scope="row">{{ i + 1 }}</th>
+
+                            <td>{{product.barcode}}</td>
+                            <td>{{product.name}} {{product.unit}}</td>
+                            <td>{{product.price}}</td>
+
+                            <td>{{product.quantity}}</td>
+                            <td>{{product.brancheName}}</td>
+
+                         
+                          </tr>
+
+
+
+                        </ng-container>
+
+                     
+           
+            
+
+                      </tbody>
+                    </table>
+
+
+                </c-card-body>
+              </c-card>
+            </c-col>
+          </c-row>
+          
+              </c-card-header>
+       
+      </c-card>
+    </c-col>
+  </c-row>
+  

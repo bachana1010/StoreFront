@@ -84,22 +84,14 @@ const routes: Routes = [
         loadChildren: () =>
           import('./myModule/product/product.module').then((m) => m.ProductModule)
       },
+      {
+        path: 'manager',
+        loadChildren: () =>
+          import('./myModule/manager/manager.module').then((m) => m.ManagerModule)
+      },
     ]
   },
-  // {
-  //   path: '404',
-  //   component: Page404Component,
-  //   data: {
-  //     title: 'Page 404'
-  //   }
-  // },
-  // {
-  //   path: '500',
-  //   component: Page500Component,
-  //   data: {
-  //     title: 'Page 500'
-  //   }
-  // },
+
   {
     path: 'signin',
     loadChildren: () =>
