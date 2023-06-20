@@ -40,7 +40,7 @@
                   </tbody>
                 </table>
                 <!-- Add pagination controls here -->
-                <button cButton (click)="changePage(pageNumber - 1)" [disabled]="isFirstPage()">Previous</button>
+                <button cButton (click)="changePage(pageNumber - 1)" [disabled]="isFirstPage()" >Previous</button>
                 <span>Page {{pageNumber}}</span>
                 <button cButton (click)="changePage(pageNumber + 1)" [disabled]="isLastPage()">Next</button>
 

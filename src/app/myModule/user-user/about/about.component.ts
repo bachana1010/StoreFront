@@ -23,13 +23,13 @@ export class AboutComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // When the component is initialized, we get the page number and size from the query parameters
     this.route.queryParamMap.subscribe(params => {
       this.pageNumber = Number(params.get('pageNumber')) || 1;
       this.pageSize = Number(params.get('pageSize')) || 5;
       this.loadData();
     });
   }
+  
 
   loadData() {
     this.userService.getUsers(this.pageNumber, this.pageSize).subscribe(response => {
@@ -45,13 +45,14 @@ export class AboutComponent implements OnInit {
 
 
 
-  changePage(newPageNumber: number) {
-    console.log("Change page function called with: ", newPageNumber);
-    if ((newPageNumber >= 1) && (newPageNumber <= Math.ceil(this.totalCount / this.pageSize))) {
+changePage(newPageNumber: number) {
+  if ((newPageNumber - 1) * this.pageSize < this.totalCount) {
       this.pageNumber = newPageNumber;
+      this.router.navigate([], { queryParams: { pageNumber: this.pageNumber, pageSize: this.pageSize }, queryParamsHandling: 'merge' });
       this.loadData();
-    }
+  }
 }
+
 
 
   isFirstPage(): boolean {
