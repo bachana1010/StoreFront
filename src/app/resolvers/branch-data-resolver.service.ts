@@ -11,6 +11,6 @@ export class BranchDataResolverService implements Resolve<any> {
   constructor(private branchService: BranchService) { }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
-    return this.branchService.getBranches();  // call the getBranches method
+    return this.branchService.getBranches();  
   }
 }

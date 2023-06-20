@@ -11,44 +11,66 @@ import { Users, UserApiResponse } from '../../../interfaces/users';
 
 export class AboutComponent implements OnInit {
   UsersData: Users[] = [];
+  totalCount: number = 0;
 
-  constructor(private router: Router,
-              private userService: UserService,
-              private route: ActivatedRoute) { }
+  pageSize: number = 5;
+  pageNumber: number = 1
+
+  constructor(
+    private router: Router,
+    private userService: UserService,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
-
-    console.log("datadan")
-    this.loadData()
+    // When the component is initialized, we get the page number and size from the query parameters
+    this.route.queryParamMap.subscribe(params => {
+      this.pageNumber = Number(params.get('pageNumber')) || 1;
+      this.pageSize = Number(params.get('pageSize')) || 5;
+      this.loadData();
+    });
   }
 
   loadData() {
+    this.userService.getUsers(this.pageNumber, this.pageSize).subscribe(response => {
+      console.log("Data received from server: ", response);
+      this.UsersData = response.users;
+      this.totalCount = response.totalCount; // changed TotalCount to totalCount
 
-    this.userService.getUsers().subscribe((response: UserApiResponse) => {
-      console.log('esaa axali responsi', response);
-      this.UsersData = response;  // your response is directly the array of users
-      console.log(this.UsersData);
+      console.log("UsersData: ", this.UsersData);
+      console.log("Total count: ", this.totalCount);
     });
+}
+
+
+
+
+  changePage(newPageNumber: number) {
+    console.log("Change page function called with: ", newPageNumber);
+    if ((newPageNumber >= 1) && (newPageNumber <= Math.ceil(this.totalCount / this.pageSize))) {
+      this.pageNumber = newPageNumber;
+      this.loadData();
+    }
+}
+
+
+  isFirstPage(): boolean {
+    return this.pageNumber === 1;
   }
+
+  isLastPage(): boolean {
+    return this.pageNumber >= Math.ceil(this.totalCount / this.pageSize);
+  }
+
   navigateToUpdate(userId: number) {
     this.router.navigate(['/user/update', userId]);
   }
 
   deleteUser(item: any): void {
-    console.log(item);  // Add this line to check if `item` is correctly passed
     if (confirm("Are you sure to delete " + item.username + "?")) {
       this.userService.deleteUser(item.id).subscribe(response => {
-        this.loadData();
-        console.log(response);
+        this.changePage(this.pageNumber);
       });
     }
-  
-  
-
-
-
-
-
-
   }
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { AddUsers,updateUsers } from '../interfaces/users';
 
 
@@ -14,9 +14,15 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  getUsers(): Observable<any> {
-    return this.http.get(this.endpoint + 'api/User');
+  getUsers(pageNumber: number, pageSize: number): Observable<any> {
+    const params = new HttpParams()
+      .set('pageNumber', pageNumber.toString())
+      .set('pageSize', pageSize.toString());
+      
+    return this.http.get(this.endpoint + 'api/User', { params: params });
   }
+  
+  
 
   AddUser(task: AddUsers): Observable<any> {
     return this.http.post(this.endpoint + 'api/User', task);
