@@ -5,6 +5,7 @@ import { UpdateUserComponent } from './update-user/update-user.component';
 import { DeleteUserComponent } from './delete-user/delete-user.component';
 import { AboutComponent } from './about/about.component';
 import { AuthGuard } from '../../guard/auth.guard'; // import the AuthGuard
+import { UserDataResolverService } from '../../resolvers/user-data-resolver.service';  // import the UserDataResolverService
 
 const routes: Routes = [
   {
@@ -21,6 +22,9 @@ const routes: Routes = [
           title: 'about user',
         },
         canActivate: [AuthGuard], // Add AuthGuard to protect this route
+        resolve: {
+          users: UserDataResolverService
+        }
       },
       {
         path: 'add',

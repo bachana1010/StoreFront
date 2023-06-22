@@ -23,6 +23,13 @@ export class AboutComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.route.data.subscribe((data: any) => {
+      console.log(data.users);
+      this.UsersData = data.users.users;
+      this.totalCount = data.users.totalCount; 
+      console.log("resorvedina essss")
+    });
+
     this.route.queryParamMap.subscribe(params => {
       this.pageNumber = Number(params.get('pageNumber')) || 1;
       this.pageSize = Number(params.get('pageSize')) || 5;

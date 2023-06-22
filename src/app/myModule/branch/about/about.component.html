@@ -24,6 +24,7 @@
                       </thead>
                       <tbody>
                         <ng-container *ngFor="let oneBranch of BranchesData">
+
                           <tr>
                             <th scope="row">{{oneBranch.id}}</th>
                             <td>{{oneBranch.brancheName}}</td>
@@ -31,7 +32,7 @@
                         
                             <td>                    
                               <button cButton color="warning" (click)="navigateToUpdate(oneBranch.id)">Update</button>
-                              <button cButton color="danger" title="Delete" (click)="deleteUser(oneBranch)">Delete</button>
+                              <button cButton color="danger" title="Delete" (click)="deleteBranch(oneBranch)">Delete</button>
                              
                             </td>
                           </tr>
@@ -44,6 +45,11 @@
 
                       </tbody>
                     </table>
+
+                    <!-- Add pagination controls here -->
+                <button cButton (click)="changePage(pageNumber - 1)" [disabled]="isFirstPage()" >Previous</button>
+                <span>Page {{pageNumber}}</span>
+                <button cButton (click)="changePage(pageNumber + 1)" [disabled]="isLastPage()">Next</button>
 
 
                 </c-card-body>

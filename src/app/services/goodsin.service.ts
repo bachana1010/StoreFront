@@ -1,6 +1,8 @@
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+// import { PaginatedGoodsin } from '../../app/interfaces/goodsin1';
+import { managerGoodSinApi,managerGoodSin,PaginatedManagerGoodSin } from '../interfaces/managerlist';
 
 export interface GoodsinAdd {
   barcode: string;
@@ -9,6 +11,9 @@ export interface GoodsinAdd {
   unit: string;
   quantity: number;
 }
+
+
+
 
 export type GoodsinAddApiResponse = GoodsinAdd[];
 
@@ -29,7 +34,13 @@ export class GoodsinService {
     return this.http.get<any>(`${this.endpoint}api/GoodSin/${barcodetext}`);
   }
 
-  getGoodSin(): Observable<any> {
-    return this.http.get(this.endpoint + 'Api/GoodSin');
-  } 
+  getGoodSin(pageNumber: number = 1, pageSize: number = 5): Observable<PaginatedManagerGoodSin> {
+    const params = new HttpParams()
+        .set('pageNumber', pageNumber.toString())
+        .set('pageSize', pageSize.toString());
+
+    return this.http.get<PaginatedManagerGoodSin>(`${this.endpoint}Api/GoodSin`, { params: params });
+}
+
+   
 }

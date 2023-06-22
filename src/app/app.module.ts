@@ -101,7 +101,7 @@ const APP_CONTAINERS = [
 
     },
     {
-      provide: HTTP_INTERCEPTORS,  // Add this provider
+      provide: HTTP_INTERCEPTORS,  
       useClass: AuthInterceptor,
       multi: true
     },

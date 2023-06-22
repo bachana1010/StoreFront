@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { AddBranch } from '../interfaces/branch';
 
 
@@ -13,8 +13,12 @@ export class BranchService {
 
   constructor(private http: HttpClient) { }
   
-  getBranches(): Observable<any> {
-    return this.http.get(this.endpoint);
+  getBranches(pageNumber: number = 1, pageSize: number = 5): Observable<any> {
+    const params = new HttpParams()
+      .set('pageNumber', pageNumber.toString())
+      .set('pageSize', pageSize.toString());
+
+    return this.http.get(this.endpoint, { params: params });
   }
 
   deleteBranch(id: number): Observable<any> {

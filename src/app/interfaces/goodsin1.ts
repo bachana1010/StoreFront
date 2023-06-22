@@ -8,3 +8,10 @@ export interface GoodsinAdd {
   
   export type GoodsinAddApiResponse = GoodsinAdd[];
   
+  interface PaginatedGoodsin {
+    currentPage: number;
+    perPage: number;
+    total: number;
+    data: GoodsinAdd[];
+  }
+  

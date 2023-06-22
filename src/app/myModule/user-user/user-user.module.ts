@@ -13,6 +13,7 @@ import { IconModule } from '@coreui/icons-angular';
 import { FormsModule } from '@angular/forms';
 // import { ThemeRoutingModule } from '';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { UserDataResolverService } from '../../resolvers/user-data-resolver.service';  // import the UserDataResolverService
 
 
 // src/app/views/theme
@@ -43,6 +44,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     ReactiveFormsModule,
     MatSnackBarModule
 
-  ]
+  ],
+  providers: [UserDataResolverService] // Provide the resolver
+
 })
 export class UserUserModule { }

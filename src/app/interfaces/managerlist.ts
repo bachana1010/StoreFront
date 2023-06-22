@@ -12,6 +12,7 @@ export interface managerProduct {
   export type managerProductApiResponse = managerProduct[];
   
 
+
   export interface managerGoodSin {
     barcodeName: string;
     operatorUserName: string;
@@ -23,6 +24,13 @@ export interface managerProduct {
   
   export type managerGoodSinApi = managerGoodSin[];
     
+  export interface PaginatedManagerGoodSin {
+    currentPage: number;
+    perPage: number;
+    total: number;
+    data: managerGoodSin[];
+}
+
 
   export interface managerGoodSOut {
     barcodeName: string;
