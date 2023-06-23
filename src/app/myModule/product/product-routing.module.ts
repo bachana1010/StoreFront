@@ -6,45 +6,45 @@ import { ListComponent } from './list/list.component';
 import { AuthGuard } from '../../guard/auth.guard'; // import the AuthGuard
 
 const routes: Routes = [
-  {
-    path: '',
-    data: {
-      title: 'product',
-      canActivate: [AuthGuard], // Add AuthGuard to protect this route
-
-      UserRole: ['operator'] // Here you define which roles can access the operator routes
-    },
-    children: [
-      {
-        path: 'goodsin',
-        component: GoodsInComponent,
-        data: {
-          title: 'goodsin',
-        },
-        canActivate: [AuthGuard], // Add AuthGuard to protect this route
-      },
-      {
-        path: 'goodsout',
-        component: GoodsOutComponent,
-        data: {
-          title: 'goodsout',
-        },
-        canActivate: [AuthGuard], // Add AuthGuard to protect this route
-      },
-      {
-        path: 'list',
-        component: ListComponent,
-        data: {
-          title: 'update user',
-        },
-        canActivate: [AuthGuard], // Add AuthGuard to protect this route
-      },
-    ]
-  },
+   {
+     path: '',
+     data: {
+       title: 'product'
+     },
+     children: [
+       {
+         path: 'goodsin',
+         component: GoodsInComponent,
+         data: {
+           title: 'goodsin',
+           canActivate: [AuthGuard], // Add AuthGuard to protect this route
+           roles: ['operator'] // Define which roles can access this route
+         }
+       },
+       {
+         path: 'goodsout',
+         component: GoodsOutComponent,
+         data: {
+           title: 'goodsout',
+           canActivate: [AuthGuard], // Add AuthGuard to protect this route
+           roles: ['operator'] // Define which roles can access this route
+         }
+       },
+       {
+         path: '',
+         component: ListComponent,
+         data: {
+           title: 'list',
+           canActivate: [AuthGuard], // Add AuthGuard to protect this route
+           roles: ['operator', 'manager'] // Both operator and manager can access this route
+         }
+       },
+     ]
+   },
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+   imports: [RouterModule.forChild(routes)],
+   exports: [RouterModule]
 })
 export class ProductRoutingModule { }

@@ -4,7 +4,8 @@ export interface Products {
     name: string;
     unit: string;
     quantity: number;
-    price: number
+    price: number;
+    branchename? : string;
   }
   
   export type ProductsAddApiResponse = Products[];

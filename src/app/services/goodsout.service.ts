@@ -1,7 +1,8 @@
 
 import { Observable, catchError, throwError } from 'rxjs';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { managerGoodSinApi,managerGoodSin,PaginatedManagerGoodSin } from '../interfaces/managerlist';
 
 export interface GoodsOut {
   barcode: string;
@@ -33,9 +34,16 @@ export class GoodsOutService {
     return throwError(error.error);
 };
 
-  getGoodSOut(): Observable<any> {
-    return this.http.get(this.endpoint + 'Api/GoodsOut');
-  } 
+
+
+  getGoodSOut(pageNumber: number = 1, pageSize: number = 5): Observable<PaginatedManagerGoodSin> {
+    const params = new HttpParams()
+        .set('pageNumber', pageNumber.toString())
+        .set('pageSize', pageSize.toString());
+
+    return this.http.get<PaginatedManagerGoodSin>(`${this.endpoint}Api/GoodsOut`, { params: params });
+}
+
 
 }
 

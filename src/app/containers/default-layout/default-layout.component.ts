@@ -19,7 +19,7 @@ export class DefaultLayoutComponent implements OnInit {
       const userRole = localStorage.getItem('UserRole');
 
       switch(userRole) {
-        case 'Administrator':
+        case 'administrator':
           this.navItems = adminNavItems;
           break;
         case 'operator':

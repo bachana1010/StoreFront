@@ -51,7 +51,10 @@
                       </tbody>
                     </table>
 
-
+                    <button cButton (click)="changePage(pageNumber - 1)" [disabled]="isFirstPage()" >Previous</button>
+                    <span>Page {{pageNumber}}</span>
+                    <button cButton (click)="changePage(pageNumber + 1)" [disabled]="isLastPage()">Next</button>
+                    
                 </c-card-body>
               </c-card>
             </c-col>

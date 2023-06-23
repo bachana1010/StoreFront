@@ -46,3 +46,9 @@ export interface managerProduct {
 
 
 
+  export interface PaginatedManagerProduct {
+    currentPage: number;
+    perPage: number;
+    total: number;
+    data: managerProduct[];
+}

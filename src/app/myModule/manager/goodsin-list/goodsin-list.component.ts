@@ -31,10 +31,10 @@ export class GoodsinListComponent implements OnInit {
   }
 
   loadGoodsinData() {
-    this.goodsinService.getGoodSin().subscribe((response: PaginatedManagerGoodSin) => {
+    this.goodsinService.getGoodSin(this.pageNumber, this.pageSize).subscribe((response: any) => {
       console.log('Data received from server: ', response);
-      this.managerGoodsin = response.data;  
-      this.totalCount = response.total; 
+      this.managerGoodsin = response.results;  
+      this.totalCount = response.totalCount; 
       console.log(this.managerGoodsin);
     });
 }
