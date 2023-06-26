@@ -9,47 +9,62 @@ interface JwtPayload {
   // include other properties as needed
 }
 
+interface TokenResponse {
+  token: string;
+  // include other properties as needed
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  endpoint = 'http://localhost:5043/'
+  endpoint = 'http://localhost:5043/';
   public logoutEvent = new BehaviorSubject(false); // Add this line
 
   constructor(
     private http: HttpClient,
-              private router: Router,
+    private router: Router,
   ) { }
 
   registerUser(user: any ): Observable<any>{
     console.log('Sending request to:', this.endpoint + 'api/auth/register');
-
     return this.http.post(this.endpoint + "api/auth/register", user)
-
   }
-
 
   loginUser(user: any): Observable<any>{
     console.log('Sending request to:', this.endpoint + 'api/auth/login');
     return this.http.post(this.endpoint + "api/auth/login", user);
   }
 
-  
+  refreshToken(): Observable<TokenResponse> {
+    console.log('Sending request to:', this.endpoint + 'api/auth/refresh');
+    const refreshToken = localStorage.getItem('refreshToken');
+    return this.http.post<TokenResponse>(this.endpoint + "api/auth/refresh", { refreshToken });
+  }
+
   logoutUser(){
-    localStorage.removeItem("Authorization")
+    localStorage.removeItem("Authorization");
+    localStorage.removeItem("refreshToken"); // Add this line
     localStorage.removeItem("ID"); 
 
-    this.router.navigate(["login"])
+    this.router.navigate(["login"]);
  }
 
   loggedIn(){
-    return !!localStorage.getItem('Authorization')
+    return !!localStorage.getItem('Authorization');
   }
 
-  // Add these methods
+  getAuthToken(): string | null {
+    return localStorage.getItem('Authorization');
+  }
+
+  storeAuthToken(token: string): void {
+    localStorage.setItem('Authorization', token);
+  }
+
   isTokenExpired(): boolean {
-    const token = localStorage.getItem('Authorization');
+    const token = this.getAuthToken();
 
     if (!token) {
       return true;
@@ -67,9 +82,9 @@ export class AuthService {
     return false;
   }
 
-  clearExpiredToken() {
-    if (this.isTokenExpired()) {
-      localStorage.removeItem('Authorization');
-    }
-  }
+  // clearExpiredToken() {
+  //   if (this.isTokenExpired()) {
+  //     this.storeAuthToken('11111');
+  //   }
+  // }
 }

@@ -1,37 +1,94 @@
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError, BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
-import jwt_decode from 'jwt-decode';
-
-interface JwtPayload {
-  exp: number;
-  // include other properties as needed
-}
+import { AuthService } from '../services/auth.service';
+import { catchError, switchMap, finalize, filter, take } from 'rxjs/operators';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
+  private isRefreshing = false;
+  private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
-  constructor() {}
+  constructor(private authService: AuthService) { }
 
-  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    const token = localStorage.getItem('Authorization');
-
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    const token = this.authService.getAuthToken();
+    console.log(111)
     if (token) {
-      const decodedToken = jwt_decode<JwtPayload>(token);
-      const currentTimestamp = new Date().getTime() / 1000; // convert to seconds
+      request = this.addToken(request, token);
+      console.log(222)
 
-      if (decodedToken.exp < currentTimestamp) {
-        // The token has expired, clear it from local storage and maybe redirect to login
-        localStorage.removeItem('Authorization');
-      } else {
-        const clonedRequest = request.clone({
-          headers: request.headers.set('Authorization', `Bearer ${token}`)
-        });
-
-        return next.handle(clonedRequest);
-      }
     }
+  
+    return next.handle(request).pipe(catchError(error => {
+      console.log(3)
 
-    return next.handle(request);
+      if (error instanceof HttpErrorResponse && error.status === 401) {
+        return this.handle401Error(request, next);
+        console.log(4)
+
+      } else {
+        return throwError(error);
+        console.log(5)
+
+      }
+    }));
   }
+  
+  private addToken(request: HttpRequest<any>, token: string) {
+    console.log(5)
+
+    return request.clone({
+
+      setHeaders: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
+  }
+
+  private handle401Error(request: HttpRequest<any>, next: HttpHandler) {
+    console.log(6)
+
+    if (!this.isRefreshing) {
+      this.isRefreshing = true;
+      this.refreshTokenSubject.next(null);
+  
+      return this.authService.refreshToken().pipe(
+        switchMap((tokenResponse: any) => {
+          if (tokenResponse && tokenResponse.token) {
+            this.authService.storeAuthToken(tokenResponse.token);
+            this.refreshTokenSubject.next(tokenResponse.token);
+            return next.handle(this.addToken(request, tokenResponse.token));
+          }
+  
+          // If we don't get a new token, we are in trouble so logout.
+          return throwError('Refresh token failed'); // Throw error
+        }),
+        catchError(() => {
+          // If there is an exception calling 'refreshToken', bad news so logout.
+          this.authService.logoutUser();
+          return throwError('Error during token refresh, logging out.');
+        }),
+        finalize(() => {
+          this.isRefreshing = false;
+        })
+      );
+    } else {
+      // If refreshToken is being called, wait for it to finish
+      // once it finishes we should have new token so retry the failed request.
+      return this.refreshTokenSubject.pipe(
+        filter(token => token != null),
+        take(1),
+        switchMap(jwt => {
+          if (jwt) {
+            return next.handle(this.addToken(request, jwt));
+          } else {
+            return throwError('Token is null');
+          }
+        })
+      );
+    }
+  }
+  
+  
 }

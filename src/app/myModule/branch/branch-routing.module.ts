@@ -13,7 +13,7 @@ const routes: Routes = [
     canActivate: [AuthGuard], // Add this line
     data: {
       title: 'branch',
-      UserRole: ['Administrator'] // specify that only the 'Administrator' role is allowed
+      UserRole: ['administrator'] // specify that only the 'Administrator' role is allowed
     },
     children: [
       {

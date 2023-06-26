@@ -14,12 +14,12 @@ import { AuthService } from '../services/auth.service'; // assuming you have an 
         state: RouterStateSnapshot
       ): boolean {
         // Check if the token has expired
-        if (this.authService.isTokenExpired()) {
-          this.authService.clearExpiredToken();
-          // Navigate to the login page or show a message
-          this.router.navigate(['/login']);
-          return false;
-        }
+        // if (this.authService.isTokenExpired()) {
+        //   // this.authService.clearExpiredToken();
+        //   // Navigate to the login page or show a message
+        //   this.router.navigate(['/login']);
+        //   return false;
+        // }
 
         // Check user role
         const currentUserRole = localStorage.getItem('UserRole'); // Get the role of current user

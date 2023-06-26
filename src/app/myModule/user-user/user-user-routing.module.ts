@@ -12,7 +12,7 @@ const routes: Routes = [
     path: '',
     data: {
       title: 'User',
-      UserRole: ['Administrator'] // Here you define which roles can access the Administrator routes
+      UserRole: ['administrator'] // Here you define which roles can access the Administrator routes
     },
     children: [
       {
