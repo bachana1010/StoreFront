@@ -6,7 +6,7 @@
       <c-card-header>
         <form [formGroup]="filterForm" (ngSubmit)="applyFilter()">
           <c-row ngPreserveWhitespaces>
-
+            
             <c-col [md]="3" class="mb-4">
               <label cLabel for="quantity">Quantity</label>
               <input cFormControl id="quantity" type="number" formControlName="quantity">
@@ -14,12 +14,22 @@
 
             <c-col [md]="3" class="mb-4">
               <label cLabel>Quantity Operator</label>
-              <div>
-                <input type="radio" id="lessThan" value="<" formControlName="quantityOperator"> Less Than
-                <input type="radio" id="greaterThan" value=">" formControlName="quantityOperator"> Greater Than
-                <input type="radio" id="equals" value="=" formControlName="quantityOperator"> Equals
+              <div class="d-flex justify-content-between mt-2">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" id="quantityLessThan" value="<" formControlName="quantityOperator">
+                  <label class="form-check-label" for="quantityLessThan"><</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" id="quantityEqualTo" value="=" formControlName="quantityOperator">
+                  <label class="form-check-label" for="quantityEqualTo">=</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" id="quantityGreaterThan" value=">" formControlName="quantityOperator">
+                  <label class="form-check-label" for="quantityGreaterThan">></label>
+                </div>
               </div>
             </c-col>
+            
             
             
 

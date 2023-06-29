@@ -1,66 +1,99 @@
 <c-row ngPreserveWhitespaces>
-    <c-col xs="12">
-    </c-col>
-    <c-col xs="12">
-      <c-card class="mb-4">
-        <c-card-header>
+  <c-col xs="12">
+  </c-col>
+  <c-col xs="12">
+    <c-card class="mb-4">
+      <c-card-header>
+        <form [formGroup]="myForm" (ngSubmit)="applyFilter()">
           <c-row ngPreserveWhitespaces>
-            <c-col xs="12">
+            <c-col [md]="3" class="mb-4">
+              <label cLabel for="name">Name</label>
+              <input cFormControl id="name" type="text" formControlName="name">
             </c-col>
+
+            <c-col [md]="3" class="mb-4">
+              <label cLabel for="price">Price</label>
+              <input cFormControl id="price" type="text" formControlName="priceValue">
+              <label cLabel>Price Operator</label>
+              <div class="d-flex justify-content-between mt-2">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" id="priceLessThan" value="<" formControlName="priceOperator">
+                  <label class="form-check-label" for="priceLessThan"><</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" id="priceEqualTo" value="=" formControlName="priceOperator">
+                  <label class="form-check-label" for="priceEqualTo">=</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" id="priceGreaterThan" value=">" formControlName="priceOperator">
+                  <label class="form-check-label" for="priceGreaterThan">></label>
+                </div>
+              </div>
+            </c-col>
+            
+            <c-col [md]="3" class="mb-4">
+              <label cLabel for="quantity">Quantity</label>
+              <input cFormControl id="quantity" type="text" formControlName="quantityValue">
+              <label cLabel>Quantity Operator</label>
+              <div class="d-flex justify-content-between mt-2">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" id="quantityLessThan" value="<" formControlName="quantityOperator">
+                  <label class="form-check-label" for="quantityLessThan"><</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" id="quantityEqualTo" value="=" formControlName="quantityOperator">
+                  <label class="form-check-label" for="quantityEqualTo">=</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" id="quantityGreaterThan" value=">" formControlName="quantityOperator">
+                  <label class="form-check-label" for="quantityGreaterThan">></label>
+                </div>
+              </div>
+            </c-col>
+            
+
+            <c-col [md]="2" class="mb-4">
+              <button cButton type="submit">Filter</button>
+              <button cButton type="button"  class="btn btn-danger"  (click)="clearFilter()">Clear</button>
+            </c-col>
+
             <c-col xs="12">
               <c-card class="mb-4">
                 <c-card-header>
-                    <button cButton color="success" [routerLink]="['/products/list']">Product list</button>
-                      </c-card-header>
+                  <button cButton color="success" [routerLink]="['/products/list']">Product list</button>
+                </c-card-header>
                 <c-card-body>
                   <table cTable>
-                      <thead>
+                    <thead>
                       <tr>
                         <th scope="col">#</th>
-
-                        <th scope="col">barcode</th>
-                        <th scope="col">name</th>
-                        <th scope="col">price</th>
-                        <th scope="col">quantity</th>
+                        <th scope="col">Barcode</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Quantity</th>
                       </tr>
-                      </thead>
-                      <tbody>
-                        <ng-container *ngFor="let product of ProductData;let i = index">
-                          <tr>
-                            <th scope="row">{{ i + 1 }}</th>
-
-                            <td>{{product.barcode}}</td>
-                            <td>{{product.name}} {{product.unit}}</td>
-                            <td>{{product.price}}</td>
-
-                            <td>{{product.quantity}}</td>
-                            <!-- <td *ngIf="userRole === 'manager'">{{ product.brancheName }}</td> -->
-
-                         
-                          </tr>
-
-
-
-                        </ng-container>
-
-                     
-           
-            
-
-                      </tbody>
-                    </table>
-                    <button cButton (click)="changePage(pageNumber - 1)" [disabled]="isFirstPage()" >Previous</button>
-                    <span>Page {{pageNumber}}</span>
-                    <button cButton (click)="changePage(pageNumber + 1)" [disabled]="isLastPage()">Next</button>
-
+                    </thead>
+                    <tbody>
+                      <ng-container *ngFor="let product of ProductData;let i = index">
+                        <tr>
+                          <th scope="row">{{ i + 1 }}</th>
+                          <td>{{product.barcode}}</td>
+                          <td>{{product.name}} {{product.unit}}</td>
+                          <td>{{product.price}}</td>
+                          <td>{{product.quantity}}</td>
+                        </tr>
+                      </ng-container>
+                    </tbody>
+                  </table>
+                  <button cButton (click)="changePage(pageNumber - 1)" [disabled]="isFirstPage()" >Previous</button>
+                  <span>Page {{pageNumber}}</span>
+                  <button cButton (click)="changePage(pageNumber + 1)" [disabled]="isLastPage()">Next</button>
                 </c-card-body>
               </c-card>
             </c-col>
           </c-row>
-          
-              </c-card-header>
-       
-      </c-card>
-    </c-col>
-  </c-row>
-  
+        </form>
+      </c-card-header>
+    </c-card>
+  </c-col>
+</c-row>

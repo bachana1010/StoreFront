@@ -10,3 +10,11 @@ export interface Products {
   
   export type ProductsAddApiResponse = Products[];
   
+  export interface ProductFilter {
+    name?: string;
+    priceOperator?: string;
+    priceValue?: number;
+    quantityOperator?: string;
+    quantityValue?: number;
+  }
+  
