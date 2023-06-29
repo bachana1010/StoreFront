@@ -1,25 +1,45 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { Observable, catchError, throwError } from 'rxjs';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { AddBranch } from '../interfaces/branch';
+import { BranchFilter } from '../interfaces/branchfilter';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class BranchService {
-  endpoint = 'http://localhost:5043/api/Branch'
+  endpoint = 'http://localhost:5043/api/Branch/'
+  
 
   constructor(private http: HttpClient) { }
-  
-  getBranches(pageNumber: number = 1, pageSize: number = 5): Observable<any> {
-    const params = new HttpParams()
+  getBranches(filter: BranchFilter, pageNumber: number, pageSize: number): Observable<any> {
+    let params = new HttpParams()
       .set('pageNumber', pageNumber.toString())
       .set('pageSize', pageSize.toString());
+      console.log(filter)
 
-    return this.http.get(this.endpoint, { params: params });
+    if (filter.BrancheName) {
+      params = params.set('BrancheName', filter.BrancheName);
+      console.log(filter)
+    }
+  
+    if (filter.addedByUserName) {
+      params = params.set('addedByUserName', filter.addedByUserName);
+      console.log(filter)
+
+    }
+  
+    return this.http.get<any>(this.endpoint, { params: params })
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          console.error(`Error fetching data: ${error.statusText}, Full error: `, error);
+          return throwError(error);
+        })
+      );
   }
+  
 
   deleteBranch(id: number): Observable<any> {
     return this.http.delete<any>(`${this.endpoint}/${id}`);

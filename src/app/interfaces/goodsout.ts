@@ -6,3 +6,10 @@ export interface GoodsiOut {
   
   export type GoodsinAddApiResponse = GoodsiOut[];
   
+  export interface GoodsoutFilter {
+    quantity?: number;
+    quantityOperator?: string;
+    dateFrom?: string;
+    dateTo?: string;
+  }
+  

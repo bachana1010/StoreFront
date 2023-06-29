@@ -1,68 +1,85 @@
 <c-row ngPreserveWhitespaces>
-    <c-col xs="12">
-    </c-col>
-    <c-col xs="12">
-      <c-card class="mb-4">
-        <c-card-header>
+  <c-col xs="12">
+  </c-col>
+  <c-col xs="12">
+    <c-card class="mb-4">
+      <c-card-header>
+        <form [formGroup]="filterForm" (ngSubmit)="applyFilter()">
           <c-row ngPreserveWhitespaces>
-            <c-col xs="12">
+
+            <c-col [md]="3" class="mb-4">
+              <label cLabel for="quantity">Quantity</label>
+              <input cFormControl id="quantity" type="number" formControlName="quantity">
             </c-col>
+
+            <c-col [md]="3" class="mb-4">
+              <label cLabel>Quantity Operator</label>
+              <div>
+                <input type="radio" id="lessThan" value="<" formControlName="quantityOperator"> Less Than
+                <input type="radio" id="greaterThan" value=">" formControlName="quantityOperator"> Greater Than
+                <input type="radio" id="equals" value="=" formControlName="quantityOperator"> Equals
+              </div>
+            </c-col>
+            
+            
+
+        
+
+            <c-col [md]="3" class="mb-4">
+              <label cLabel for="dateFrom">Date From</label>
+              <input cFormControl id="dateFrom" type="date" formControlName="dateFrom">
+            </c-col>
+
+            <c-col [md]="3" class="mb-4">
+              <label cLabel for="dateTo">Date To</label>
+              <input cFormControl id="dateTo" type="date" formControlName="dateTo">
+            </c-col>
+
+            <c-col [md]="2" class="mb-4">
+              <button cButton type="submit">Filter</button>
+              <button cButton type="button"  class="btn btn-danger" (click)="clearFilter()">Clear</button>
+            </c-col>
+
             <c-col xs="12">
               <c-card class="mb-4">
                 <c-card-header>
-                    <button cButton color="success" [routerLink]="['/manager/goodsIn']">Goodsin list </button>
-                      </c-card-header>
+                  <button cButton color="success" [routerLink]="['/manager/goodsIn']">Goodsin list</button>
+                </c-card-header>
                 <c-card-body>
                   <table cTable>
-                      <thead>
+                    <thead>
                       <tr>
                         <th scope="col">#</th>
-
                         <th scope="col">OperatorUserName</th>
                         <th scope="col">BranchName</th>
                         <th scope="col">BarcodeName</th>
                         <th scope="col">quantity</th>
                         <th scope="col">EntryDate</th>
-
                       </tr>
-                      </thead>
-                      <tbody>
-                        <ng-container *ngFor="let product of managerGoodsin;let i = index">
-                          <tr>
-                            <th scope="row">{{ i + 1 }}</th>
-                            <td>{{product.operatorUserName}}</td>
-                            <td>{{product.branchName}}</td>
-                            <td>{{product.barcodeName}}</td>
-
-                            <td>{{product.quantity}}</td>
-                            <td>{{product.entryDate}}</td>
-
-                         
-                          </tr>
-
-
-
-                        </ng-container>
-
-                     
-           
-            
-
-                      </tbody>
-                    </table>
-    <!-- Add pagination controls here -->
-    <button cButton (click)="changePage(pageNumber - 1)" [disabled]="isFirstPage()" >Previous</button>
-    <span>Page {{pageNumber}}</span>
-    <button cButton (click)="changePage(pageNumber + 1)" [disabled]="isLastPage()">Next</button>
-
+                    </thead>
+                    <tbody>
+                      <ng-container *ngFor="let product of managerGoodsin; let i = index">
+                        <tr>
+                          <th scope="row">{{ i + 1 }}</th>
+                          <td>{{product.operatorUserName}}</td>
+                          <td>{{product.branchName}}</td>
+                          <td>{{product.barcodeName}}</td>
+                          <td>{{product.quantity}}</td>
+                          <td>{{product.entryDate}}</td>
+                        </tr>
+                      </ng-container>
+                    </tbody>
+                  </table>
+                  <!-- Add pagination controls here -->
+                  <button cButton (click)="changePage(pageNumber - 1)" [disabled]="isFirstPage()">Previous</button>
+                  <span>Page {{pageNumber}}</span>
+                  <button cButton (click)="changePage(pageNumber + 1)" [disabled]="isLastPage()">Next</button>
                 </c-card-body>
               </c-card>
             </c-col>
           </c-row>
-          
-              </c-card-header>
-       
-      </c-card>
-    </c-col>
-  </c-row>
-  
+        </form>
+      </c-card-header>
+    </c-card>
+  </c-col>
+</c-row>

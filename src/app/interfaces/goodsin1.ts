@@ -1,17 +1,27 @@
 export interface GoodsinAdd {
-    barcode: string;
-    name: string;
-    price: number;
-    unit: string;
-    quantity: number;
-  }
-  
-  export type GoodsinAddApiResponse = GoodsinAdd[];
-  
-  interface PaginatedGoodsin {
-    currentPage: number;
-    perPage: number;
-    total: number;
-    data: GoodsinAdd[];
-  }
-  
+  quantity: number;
+  entryDate: string;
+  branchName: string;
+  operatorUserName: string;
+  barcodeName: string;
+}
+
+export type GoodsinAddApiResponse = GoodsinAdd[];
+
+export interface PaginatedManagerGoodSin {
+  totalCount: number;
+  results: GoodsinAdd[];
+}
+
+export interface GoodsinFilter {
+  barcode?: string;
+  name?: string;
+  price?: number | null;
+  unit?: string;
+  quantity?: number | null;
+  quantityOperator?: string;
+  entryDate?: string;
+  dateFrom?: string;
+  dateTo?: string;
+}
+

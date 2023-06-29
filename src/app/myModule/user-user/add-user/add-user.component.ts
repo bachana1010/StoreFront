@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router'; // add this import
 
 import { UserService } from '../../../services/user.service';
 import { AddUsers } from '../../../interfaces/users';
 import { BranchService } from '../../../services/branch.service';
 import { GetBranch,BranchApiResponse } from '../../../interfaces/branch';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
 
 @Component({
   selector: 'app-add-user',
@@ -17,27 +17,26 @@ export class AddUserComponent implements OnInit {
   myForm: FormGroup | any;
   branches: GetBranch[] = []
   branchesName: [] = []
-  
 
+  generatedPassword: string = ''; 
 
-  generatedPassword: string = ''; // Initialize your variable here to hold the generated password
-  
   constructor(
-              private fb: FormBuilder, 
-              private userService: UserService,
-              private branchService: BranchService,
-              private snackBar: MatSnackBar
-              
-              ) { }
+    private fb: FormBuilder, 
+    private userService: UserService,
+    private branchService: BranchService,
+    private snackBar: MatSnackBar,
+    private route: ActivatedRoute // Inject ActivatedRoute
+  ) { }
   
   ngOnInit(): void {
+    this.route.data.subscribe(data => {
+      this.branches = data['branches'];
+    });
 
-    this.getBranches();
-    
     this.myForm = this.fb.group({
       email: ["", [Validators.required, Validators.email]],
       userName: ["", Validators.required],
-      password: [{value: '', disabled: false}], // remove Validators.required
+      password: [{value: '', disabled: false}],
       firstName: ["", Validators.required],
       lastName: ["", Validators.required],
       role: ["", Validators.required],
@@ -46,45 +45,33 @@ export class AddUserComponent implements OnInit {
   }
 
   generatePassword() {
-    const length = 8; // Define the length of the password
-    const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"; // Define the characters to choose from
+    const length = 8;
+    const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     let retVal = "";
     for (let i = 0, n = charset.length; i < length; ++i) {
       retVal += charset.charAt(Math.floor(Math.random() * n));
     }
-  
-    this.generatedPassword = retVal; // store the generated password
-    this.myForm.controls['password'].setValue(retVal);  // display the password in the field
-    this.myForm.controls['password'].disable();  // disable the field
+
+    this.generatedPassword = retVal;
+    this.myForm.controls['password'].setValue(retVal);
+    this.myForm.controls['password'].disable();
   }
   
-  
-  addUser(data: AddUsers): void {  // Changed from form: FormGroup to data: AddUsers
+  addUser(data: AddUsers): void {
     console.log(data)
     this.userService.AddUser(data).subscribe((res) => {
       console.log("pasuxi", res)
       console.log(data);
       this.myForm.reset();
-      // Show snackbar here
-    this.snackBar.open(res.message, 'Close', {
-      duration: 3000,  // duration in milliseconds
-    });
+      this.snackBar.open(res.message, 'Close', {
+        duration: 3000,
+      });
     })
   }
 
   onFormSubmit(form: FormGroup): void {
     const formValueWithPassword = { ...form.value, password: this.generatedPassword };
     
-    this.addUser(formValueWithPassword);  // use this new object instead of form.value
-  }
-
-  getBranches():void{
-    this.branchService.getBranches().subscribe((response: BranchApiResponse) => {
-      console.log('esaa axali responsi', response);
-  
-      this.branches = response;  
-      console.log(this.branches);
-    });
-   
+    this.addUser(formValueWithPassword);  
   }
 }

@@ -30,6 +30,9 @@ constructor(
 
 
       ngOnInit(): void {
+          this.route.data.subscribe(data => {
+            this.branches = data['branches'];
+          });
         this.myForm = this.fb.group({
           email: ["", [Validators.required, Validators.email]],
           userName: ["", Validators.required],
@@ -40,6 +43,7 @@ constructor(
           branchId: ["", Validators.required],
         })    
     
+        
         const id = this.route.snapshot.paramMap.get('id');
     
         if (id) {
@@ -72,23 +76,23 @@ constructor(
     }
               
 
-    getBranches():void{
-      this.branchService.getBranches().subscribe((response: BranchApiResponse) => {
-        console.log('esaa axali responsi', response);
+    // getBranches():void{
+    //   this.branchService.getBranches().subscribe((response: BranchApiResponse) => {
+    //     console.log('esaa axali responsi', response);
     
-        this.branches = response;  
-        console.log(this.branches);
+    //     this.branches = response;  
+    //     console.log(this.branches);
 
-        if (this.DataForUpdate.role === 'operator' || this.DataForUpdate.role === 'manager') {
-          this.myForm.get('role').disable();
-        }
-        console.log(this.DataForUpdate);
-        console.log(this.myForm);
-        console.log(this.myForm.get('role'));
+    //     if (this.DataForUpdate.role === 'operator' || this.DataForUpdate.role === 'manager') {
+    //       this.myForm.get('role').disable();
+    //     }
+    //     console.log(this.DataForUpdate);
+    //     console.log(this.myForm);
+    //     console.log(this.myForm.get('role'));
 
         
-      });
-    }
+    //   });
+    // }
 
 
     updateUser(form: FormGroup) {

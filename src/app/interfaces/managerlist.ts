@@ -31,6 +31,20 @@ export interface managerProduct {
     data: managerGoodSin[];
 }
 
+export interface GoodsinFilter {
+  barcode?: string;
+  name?: string;
+  price?: number | null;
+  unit?: string;
+  quantity?: number | null;
+  quantityOperator?: string;
+  entryDate?: string;
+  dateFrom?: string;
+  dateTo?: string;
+}
+
+
+
 
   export interface managerGoodSOut {
     barcodeName: string;
@@ -51,4 +65,12 @@ export interface managerProduct {
     perPage: number;
     total: number;
     data: managerProduct[];
+}
+
+
+export interface PaginatedManagerGoodSOut {
+  currentPage: number;
+  perPage: number;
+  total: number;
+  data: managerGoodSOut[];
 }
