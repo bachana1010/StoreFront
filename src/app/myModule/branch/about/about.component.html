@@ -5,13 +5,13 @@
         <form [formGroup]="myForm" (ngSubmit)="applyFilter()">
           <c-row ngPreserveWhitespaces>
             <c-col [md]="3" class="mb-4">
-              <label cLabel for="branch">Branch Name</label>
-              <input cFormControl id="branch" type="text" formControlName="branch">
+              <label cLabel for="BrancheName">Branch Name</label>
+              <input cFormControl id="BrancheName" type="text" formControlName="BrancheName">
             </c-col>
 
             <c-col [md]="3" class="mb-4">
-              <label cLabel for="addedByUserName">Added By</label>
-              <input cFormControl id="addedByUserName" type="text" formControlName="addedByUserName">
+              <label cLabel for="addedByUserName">Username</label>
+              <input cFormControl id="addedByUserName" type="text" formControlName="Username">
             </c-col>
 
             <c-col [md]="2" class="mb-4">

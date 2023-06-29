@@ -19,7 +19,7 @@ export class AboutComponent implements OnInit {
 
   filter: BranchFilter = {
     BrancheName: '',
-    addedByUserName: ''
+    Username: ''
   };
 
   myForm: FormGroup | any;
@@ -33,11 +33,9 @@ export class AboutComponent implements OnInit {
 
   ngOnInit(): void {
     this.myForm = this.fb.group({
-      branch: [''], 
-
-      addedByUserName: ['']
+      BrancheName: [''],
+      Username: ['']
     });
-    
 
     this.route.data.subscribe((data: any) => {
       this.BranchesData = data.branches.branches;
@@ -47,8 +45,8 @@ export class AboutComponent implements OnInit {
     this.route.queryParamMap.subscribe(params => {
       this.pageNumber = Number(params.get('pageNumber')) || 1;
       this.pageSize = Number(params.get('pageSize')) || 5;
-      this.filter.BrancheName = params.get('branchName') || '';
-      this.filter.addedByUserName = params.get('addedByUserName') || '';
+      this.filter.BrancheName = params.get('BrancheName') || '';
+      this.filter.Username = params.get('Username') || '';
       this.loadBranchData();
     });
   }
@@ -66,25 +64,22 @@ export class AboutComponent implements OnInit {
       }
     );
   }
-  
 
-
-onPageChange(newPageNumber: number) {
-  if ((newPageNumber - 1) * this.pageSize < this.totalCount) {
-    this.pageNumber = newPageNumber;
-    this.router.navigate([], { 
-      queryParams: { 
-        pageNumber: this.pageNumber, 
-        pageSize: this.pageSize, 
-        branchName: this.filter.BrancheName,
-        addedByUserName: this.filter.addedByUserName 
-      }, 
-      queryParamsHandling: 'merge' 
-    });
-    this.loadBranchData();
+  onPageChange(newPageNumber: number) {
+    if ((newPageNumber - 1) * this.pageSize < this.totalCount) {
+      this.pageNumber = newPageNumber;
+      this.router.navigate([], { 
+        queryParams: { 
+          pageNumber: this.pageNumber, 
+          pageSize: this.pageSize, 
+          BranchName: this.filter.BrancheName,
+          Username: this.filter.Username
+        }, 
+        queryParamsHandling: 'merge' 
+      });
+      this.loadBranchData();
+    }
   }
-}
-
 
   isFirstPage(): boolean {
     return this.pageNumber === 1;
@@ -112,8 +107,6 @@ onPageChange(newPageNumber: number) {
     );
   }
 
-
-
   applyFilter() {
     this.filter = this.myForm.value;
     this.router.navigate([], { 
@@ -121,23 +114,19 @@ onPageChange(newPageNumber: number) {
         pageNumber: this.pageNumber, 
         pageSize: this.pageSize, 
         BrancheName: this.filter.BrancheName, 
-        addedByUserName: this.filter.addedByUserName
+        Username: this.filter.Username
       }, 
       queryParamsHandling: 'merge' 
     });
+    this.loadBranchData();
   }
-  
-  
-  
-  
 
   clearFilter() {
     this.myForm.reset();
     this.filter = {
       BrancheName: '',
-      addedByUserName: ''
+      Username: ''
     };
     this.loadBranchData();
   }
 }
-

@@ -1,45 +1,52 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, catchError, throwError } from 'rxjs';
-import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { AddBranch } from '../interfaces/branch';
 import { BranchFilter } from '../interfaces/branchfilter';
+import { throwError } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
 
+interface BranchResponse {
+  branches: any[];
+  totalCount: number;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class BranchService {
-  endpoint = 'http://localhost:5043/api/Branch/'
-  
+  endpoint = 'http://localhost:5043/api/Branch'
 
   constructor(private http: HttpClient) { }
+
   getBranches(filter: BranchFilter, pageNumber: number, pageSize: number): Observable<any> {
     let params = new HttpParams()
       .set('pageNumber', pageNumber.toString())
       .set('pageSize', pageSize.toString());
-      console.log(filter)
-
-    if (filter.BrancheName) {
-      params = params.set('BrancheName', filter.BrancheName);
-      console.log(filter)
-    }
   
-    if (filter.addedByUserName) {
-      params = params.set('addedByUserName', filter.addedByUserName);
-      console.log(filter)
-
-    }
+      if (filter.BrancheName) {
+        params = params.set('BrancheName', filter.BrancheName);
+      }
+      
+      if (filter.Username) {
+        params = params.set('Username', filter.Username);
+      }
+      
   
-    return this.http.get<any>(this.endpoint, { params: params })
+    return this.http.get<BranchResponse>(this.endpoint, { params: params })
       .pipe(
-        catchError((error: HttpErrorResponse) => {
-          console.error(`Error fetching data: ${error.statusText}, Full error: `, error);
+        tap(response => {
+          if (!response || (response && response.branches && response.branches.length === 0)) {
+            throw new Error('No results found');
+          }
+        }),
+        catchError(error => {
+          console.error(error);
           return throwError(error);
         })
       );
   }
-  
 
   deleteBranch(id: number): Observable<any> {
     return this.http.delete<any>(`${this.endpoint}/${id}`);

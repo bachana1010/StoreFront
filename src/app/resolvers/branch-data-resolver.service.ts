@@ -16,7 +16,7 @@ export class BranchDataResolverService implements Resolve<any> {
     const pageSize = Number(route.queryParams['pageSize']) || 5;
     const filter: BranchFilter = {
       BrancheName: route.queryParams['BrancheName'] || '',
-      addedByUserName: route.queryParams['addedByUserName'] || ''
+      Username: route.queryParams['Username'] || ''
     };
 
     return this.branchService.getBranches(filter, pageNumber, pageSize);  

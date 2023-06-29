@@ -1,5 +1,4 @@
 export interface BranchFilter {
-  BrancheName: string;
-    addedByUserName: string;
-  }
-  
+  BrancheName?: string;
+  Username?: string;
+}
