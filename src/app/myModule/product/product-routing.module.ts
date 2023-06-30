@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { GoodsInComponent } from './goods-in/goods-in.component';
 import { GoodsOutComponent } from './goods-out/goods-out.component';
 import { ListComponent } from './list/list.component';
-import { AuthGuard } from '../../guard/auth.guard'; // import the AuthGuard
+import { AuthGuard } from '../../guard/auth.guard'; 
 
 const routes: Routes = [
    {
@@ -17,8 +17,8 @@ const routes: Routes = [
          component: GoodsInComponent,
          data: {
            title: 'goodsin',
-           canActivate: [AuthGuard], // Add AuthGuard to protect this route
-           roles: ['operator'] // Define which roles can access this route
+           canActivate: [AuthGuard], 
+           roles: ['operator'] 
          }
        },
        {
@@ -26,8 +26,8 @@ const routes: Routes = [
          component: GoodsOutComponent,
          data: {
            title: 'goodsout',
-           canActivate: [AuthGuard], // Add AuthGuard to protect this route
-           roles: ['operator'] // Define which roles can access this route
+           canActivate: [AuthGuard], 
+           roles: ['operator']
          }
        },
        {
@@ -35,8 +35,8 @@ const routes: Routes = [
          component: ListComponent,
          data: {
            title: 'list',
-           canActivate: [AuthGuard], // Add AuthGuard to protect this route
-           roles: ['operator', 'manager'] // Both operator and manager can access this route
+           canActivate: [AuthGuard], 
+           roles: ['operator', 'manager'] 
          }
        },
      ]

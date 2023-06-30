@@ -11,12 +11,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CardModule, GridModule, NavModule, UtilitiesModule, TabsModule,TableModule,ButtonModule,FormModule,ButtonGroupModule,ListGroupModule } from '@coreui/angular';
 import { IconModule } from '@coreui/icons-angular';
 import { FormsModule } from '@angular/forms';
-// import { ThemeRoutingModule } from '';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { UserDataResolverService } from '../../resolvers/user-data-resolver.service';  // import the UserDataResolverService
+import { UserDataResolverService } from '../../resolvers/user-data-resolver.service';  
 
 
-// src/app/views/theme
 @NgModule({
   declarations: [
     AboutComponent,
@@ -45,7 +43,7 @@ import { UserDataResolverService } from '../../resolvers/user-data-resolver.serv
     MatSnackBarModule
 
   ],
-  providers: [UserDataResolverService] // Provide the resolver
+  providers: [UserDataResolverService] //  resolver
 
 })
 export class UserUserModule { }

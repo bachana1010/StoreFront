@@ -48,7 +48,7 @@ export class GoodsInComponent {
     }
   
     
-    addBarcode(form: FormGroup): void {  // Changed from form: FormGroup to data: AddUsers
+    addBarcode(form: FormGroup): void {  
       console.log(form.value)
 
       this.goodsinService.addGoodsin(form.value).subscribe((res) => {
@@ -56,9 +56,8 @@ export class GoodsInComponent {
         console.log("pasuxi", res)
         console.log(form.value);
         this.myForm.reset();
-        // Show snackbar here
       this.snackBar.open(res.message, 'Close', {
-        duration: 3000,  // duration in milliseconds
+        duration: 3000,  
 
       });
       })
@@ -81,7 +80,6 @@ export class GoodsInComponent {
               }
             },
             (error) => {
-              // Handle error, maybe display message to user
             }
           );
       }

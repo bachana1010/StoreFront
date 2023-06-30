@@ -1,7 +1,7 @@
 
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
-import { AuthService } from '../services/auth.service'; // assuming you have an AuthService where you store the user's authentication state
+import { AuthService } from '../services/auth.service'; 
 
 @Injectable({
   providedIn: 'root'
@@ -26,9 +26,9 @@ import { AuthService } from '../services/auth.service'; // assuming you have an 
         const requiredRoles = route.data['UserRole'];
 
         if (requiredRoles) {
-          const hasPermission = requiredRoles.includes(currentUserRole); // check if user's role is one of the required roles
+          const hasPermission = requiredRoles.includes(currentUserRole); 
           if (!hasPermission) {
-            this.router.navigate(['/unauthorized']); // if user does not have required roles, navigate to an unauthorized page
+            this.router.navigate(['/unauthorized']); 
             return false;
           }
         }

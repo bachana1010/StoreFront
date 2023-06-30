@@ -37,7 +37,6 @@ import { BranchDataResolverService } from 'src/app/resolvers/branch-data-resolve
     ReactiveFormsModule,
     MatSnackBarModule
   ],
-  providers: [BranchDataResolverService] // Provide the resolver
-
+  providers: [BranchDataResolverService]  //resolveri
 })
 export class BranchModule { }

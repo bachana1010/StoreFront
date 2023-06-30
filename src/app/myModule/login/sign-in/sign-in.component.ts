@@ -32,8 +32,7 @@ export class SignInComponent implements OnInit {
 
 
   onSubmit(form: FormGroup) {
-    console.log('onSubmit triggered'); // add this line
-
+    console.log('onSubmit triggered'); 
     // if (!form.valid) {
     //   alert("Form is not valid. Please check your inputs.");
     //   return;
@@ -53,7 +52,7 @@ export class SignInComponent implements OnInit {
         localStorage.setItem('username',informationUser.username);
         localStorage.setItem('UserRole',informationUser.role);
 
-        this.router.navigateByUrl('/user') //Change this path to where you want to redirect after successful login
+        this.router.navigateByUrl('/user') 
         this.loginForm.reset();
       },
       (error) => {

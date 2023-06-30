@@ -61,11 +61,9 @@ export class AuthInterceptor implements HttpInterceptor {
             return next.handle(this.addToken(request, tokenResponse.token));
           }
   
-          // If we don't get a new token, we are in trouble so logout.
-          return throwError('Refresh token failed'); // Throw error
+          return throwError('Refresh token failed'); 
         }),
         catchError(() => {
-          // If there is an exception calling 'refreshToken', bad news so logout.
           this.authService.logoutUser();
           return throwError('Error during token refresh, logging out.');
         }),
@@ -74,8 +72,7 @@ export class AuthInterceptor implements HttpInterceptor {
         })
       );
     } else {
-      // If refreshToken is being called, wait for it to finish
-      // once it finishes we should have new token so retry the failed request.
+  
       return this.refreshTokenSubject.pipe(
         filter(token => token != null),
         take(1),

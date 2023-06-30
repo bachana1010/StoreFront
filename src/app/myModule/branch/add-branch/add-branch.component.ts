@@ -29,16 +29,15 @@ export class AddBranchComponent implements OnInit {
     })   
   }
 
-  addBranch(form: FormGroup): void {  // Changed from form: FormGroup to data: AddUsers
+  addBranch(form: FormGroup): void {  
     console.log(form.value)
 
     this.branchService.AddBranch(form.value).subscribe((res) => {
       console.log("pasuxi", res)
       this.myForm.reset();
-      // Show snackbar here
       
     this.snackBar.open(res.message, 'Close', {
-      duration: 3000,  // duration in milliseconds
+      duration: 3000, 
     });
     })
   }

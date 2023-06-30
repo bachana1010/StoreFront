@@ -14,7 +14,7 @@ import { BranchService } from '../../../services/branch.service';
 export class UpdateUserComponent implements OnInit {
   UserData: Users[] = [];
   myForm: FormGroup | any;
-  generatedPassword: string = ''; // Initialize your variable here to hold the generated password
+  generatedPassword: string = ''; 
 
   updateuser: updateUsers[] =  []
   branches: GetBranch[] = []
@@ -47,14 +47,14 @@ constructor(
         const id = this.route.snapshot.paramMap.get('id');
     
         if (id) {
-          this.getUserByid(+id); // The "+" symbol is used to convert the string to a number
-          console.log(id); // This should log the user ID to the console.
+          this.getUserByid(+id); 
+          console.log(id);
         }
     }
     
     getUserByid(id: number) {
         this.userService.getUserById(id).subscribe((response: UserApiResponse) => {
-          this.UserData = response;  // your response is directly the array of users
+          this.UserData = response;  
           this.DataForUpdate = response;
 
           console.log(this.UserData);
@@ -63,16 +63,16 @@ constructor(
           }
 
     generatePassword() {
-      const length = 8; // Define the length of the password
-      const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"; // Define the characters to choose from
+      const length = 8; 
+      const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"; 
       let retVal = "";
       for (let i = 0, n = charset.length; i < length; ++i) {
         retVal += charset.charAt(Math.floor(Math.random() * n));
       }
     
-      this.generatedPassword = retVal; // store the generated password
-      this.myForm.controls['password'].setValue(retVal);  // display the password in the field
-      this.myForm.controls['password'].disable();  // disable the field
+      this.generatedPassword = retVal; 
+      this.myForm.controls['password'].setValue(retVal); 
+      this.myForm.controls['password'].disable(); 
     }
               
 
@@ -99,7 +99,6 @@ constructor(
       const id = this.route.snapshot.paramMap.get('id');
       
       if (id !== null) {
-        // Prepare user object to match updateUsers interface
         const formValueWithPassword = { ...form.getRawValue(), Password: this.generatedPassword };
     
         let user: updateUsers = {
@@ -110,7 +109,7 @@ constructor(
           Username: formValueWithPassword.userName
         };
     
-        // Conditionally add password 
+        //  add password 
         if (formValueWithPassword.Password !== '') {
           user = { ...user, Password: formValueWithPassword.Password }
         }

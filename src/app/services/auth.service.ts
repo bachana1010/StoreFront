@@ -6,12 +6,10 @@ import jwt_decode from 'jwt-decode';
 
 interface JwtPayload {
   exp: number;
-  // include other properties as needed
 }
 
 interface TokenResponse {
   token: string;
-  // include other properties as needed
 }
 
 @Injectable({
@@ -20,7 +18,7 @@ interface TokenResponse {
 export class AuthService {
 
   endpoint = 'http://localhost:5043/';
-  public logoutEvent = new BehaviorSubject(false); // Add this line
+  public logoutEvent = new BehaviorSubject(false); 
 
   constructor(
     private http: HttpClient,
@@ -45,7 +43,7 @@ export class AuthService {
 
   logoutUser(){
     localStorage.removeItem("Authorization");
-    localStorage.removeItem("refreshToken"); // Add this line
+    localStorage.removeItem("refreshToken"); 
     localStorage.removeItem("ID"); 
 
     this.router.navigate(["login"]);
@@ -71,14 +69,10 @@ export class AuthService {
     }
 
     const decodedToken = jwt_decode<JwtPayload>(token);
-    const currentTimestamp = new Date().getTime() / 1000; // convert to seconds
-
+    const currentTimestamp = new Date().getTime() / 1000; 
     if (decodedToken.exp < currentTimestamp) {
-      // The token has expired
       return true;
     }
-
-    // The token is valid
     return false;
   }
 

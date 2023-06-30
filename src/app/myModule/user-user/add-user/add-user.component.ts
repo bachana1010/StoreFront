@@ -25,7 +25,7 @@ export class AddUserComponent implements OnInit {
     private userService: UserService,
     private branchService: BranchService,
     private snackBar: MatSnackBar,
-    private route: ActivatedRoute // Inject ActivatedRoute
+    private route: ActivatedRoute
   ) { }
   
   ngOnInit(): void {

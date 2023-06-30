@@ -22,8 +22,7 @@ import { LogoutComponent } from './logout/logout.component';
 
   ],
   providers: [
-    AuthService, // provide your AuthService here
-    // other services here
+    AuthService, 
   ]
 })
 export class LoginModule { }

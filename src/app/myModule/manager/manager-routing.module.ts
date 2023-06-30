@@ -3,31 +3,31 @@ import { RouterModule, Routes } from '@angular/router';
 import { BalanceComponent } from './balance/balance.component';
 import { GoodsOutListComponent } from './goods-out-list/goods-out-list.component';
 import { GoodsinListComponent } from './goodsin-list/goodsin-list.component';
-import { AuthGuard } from '../../guard/auth.guard'; // import the AuthGuard
+import { AuthGuard } from '../../guard/auth.guard'; 
 
 const routes: Routes = [
   {
     path: '',
-    canActivate: [AuthGuard], // Add AuthGuard to protect this route
+    canActivate: [AuthGuard], 
 
     data: {
-      UserRole: ['manager'] // Here you define which roles can access the manager routes
+      UserRole: ['manager'] 
     },
     children: [
       {
         path: 'list',
         component: BalanceComponent,
-        canActivate: [AuthGuard], // Add AuthGuard to protect this route
+        canActivate: [AuthGuard], 
       },
       {
         path: 'goodsout',
         component: GoodsOutListComponent,
-        canActivate: [AuthGuard], // Add AuthGuard to protect this route
+        canActivate: [AuthGuard], 
       },
       {
         path: 'goodsIn',
         component: GoodsinListComponent,
-        canActivate: [AuthGuard], // Add AuthGuard to protect this route
+        canActivate: [AuthGuard], 
       }
     ]
   }

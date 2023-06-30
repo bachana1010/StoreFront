@@ -61,7 +61,6 @@ export class GoodsOutComponent implements OnInit  {
         this.myForm.reset();
       
         if (res.status === 200) {
-          // Success message
           this.toastr.success(res.body.message)
           alert(res.body.message);
       }
@@ -71,7 +70,6 @@ export class GoodsOutComponent implements OnInit  {
         console.log(error, " es eroria")
         this.myForm.reset();
 
-        // Handle error here
         this.toastr.error(error.error);
 
         alert(error.error);

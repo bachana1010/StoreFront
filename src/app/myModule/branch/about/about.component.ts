@@ -96,12 +96,10 @@ export class AboutComponent implements OnInit {
   deleteBranch(branch: GetBranch) {
     this.branchService.deleteBranch(branch.id).subscribe(
       () => {
-        // Success response handler
         console.log(`Branch with id ${branch.id} deleted successfully.`);
         this.loadBranchData();
       },
       error => {
-        // Error response handler
         console.log(`Error occurred while deleting branch: ${error}`);
       }
     );

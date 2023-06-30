@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { GetBranch,BranchApiResponse,AddBranch } from '../../../interfaces/branch';
 import { BranchService } from '../../../services/branch.service';
@@ -22,7 +22,9 @@ export class UpdateBranchComponent implements OnInit {
 constructor(
             private fb: FormBuilder, 
             private route: ActivatedRoute,
-            private branchService: BranchService
+            private branchService: BranchService,
+            private router: Router
+
             ) { }
 
 
@@ -35,14 +37,14 @@ constructor(
         const id = this.route.snapshot.paramMap.get('id');
     
         if (id) {
-          this.getBranch(+id); // The "+" symbol is used to convert the string to a number
-          console.log(id); // This should log the user ID to the console.
+          this.getBranch(+id); 
+          console.log(id); 
         }
     }
 
     getBranch(id: number) {
       this.branchService.getBranchById(id).subscribe((response: BranchApiResponse) => {
-        this.BranchData = response;  // your response is directly the array of users
+        this.BranchData = response;  
         this.DataForUpdate = response
       });
         }
@@ -54,6 +56,8 @@ constructor(
 
           this.branchService.updateBranch(id, form.value).subscribe((res) => {
             this.myForm.reset();
+            this.router.navigateByUrl('/branch') 
+
           });
         } else {
           console.log("ID is null");

@@ -41,13 +41,12 @@ export class SignUpComponent {
   }
 
   ngOnDestroy() {
-    // Clean up
     this.renderer.removeStyle(document.body, 'background');
   }
 
   signUp(form: FormGroup) {
     // if (!form.valid) {
-    //   form.markAllAsTouched(); // this will trigger validation messages to show on all fields
+    //   form.markAllAsTouched(); 
     //   return;
     // }
   
@@ -74,5 +73,5 @@ export class SignUpComponent {
         }
       }
     );
-  } // This is where the extra brack
+  } 
 }

@@ -5,7 +5,6 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RegistrationRoutingModule } from './registration-routing.module';
 import { SignUpComponent } from './sign-up/sign-up.component';
 
-// CoreUI Modules
 import { CardModule, GridModule, ButtonModule, ListGroupModule, FormModule } from '@coreui/angular';
 
 @NgModule({
