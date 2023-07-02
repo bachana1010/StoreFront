@@ -4,10 +4,11 @@
         <c-card class="mb-4">
             
           <c-card-header ngPreserveWhitespaces>
-            <strong>Create a user</strong>
+            <strong>Create a Branch</strong>
           </c-card-header>
 
           <c-card-body>
+
 
             <form cForm class="row g-3" [formGroup]="myForm" (ngSubmit)="addBranch(myForm)">
 
@@ -20,12 +21,15 @@
               
                 </c-col>
                 <c-col [xs]="12">
-                  <button cButton type="submit">Sign in</button>
+                  <button cButton type="submit">Add Branch</button>
                 </c-col>
               </form>
 
+
               
           </c-card-body>
+          <div *ngIf="showMessage" class="neutral-alert">{{ message }}</div>
+
         </c-card>
     </c-col>
 </c-row>

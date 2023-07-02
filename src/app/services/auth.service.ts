@@ -35,15 +35,15 @@ export class AuthService {
     return this.http.post(this.endpoint + "api/auth/login", user);
   }
 
-  refreshToken(): Observable<TokenResponse> {
-    console.log('Sending request to:', this.endpoint + 'api/auth/refresh');
-    const refreshToken = localStorage.getItem('refreshToken');
-    return this.http.post<TokenResponse>(this.endpoint + "api/auth/refresh", { refreshToken });
-  }
+  // refreshToken(): Observable<TokenResponse> {
+  //   console.log('Sending request to:', this.endpoint + 'api/auth/refresh');
+  //   const refreshToken = localStorage.getItem('refreshToken');
+  //   return this.http.post<TokenResponse>(this.endpoint + "api/auth/refresh", { refreshToken });
+  // }
 
   logoutUser(){
     localStorage.removeItem("Authorization");
-    localStorage.removeItem("refreshToken"); 
+    // localStorage.removeItem("refreshToken"); 
     localStorage.removeItem("ID"); 
 
     this.router.navigate(["login"]);

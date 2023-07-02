@@ -47,20 +47,25 @@ export class AboutComponent implements OnInit {
       this.pageSize = Number(params.get('pageSize')) || 5;
       this.filter.BrancheName = params.get('BrancheName') || '';
       this.filter.Username = params.get('Username') || '';
-      this.loadBranchData();
     });
+
+    this.loadBranchData(); 
   }
 
   loadBranchData() {
     this.branchService.getBranches(this.filter, this.pageNumber, this.pageSize).subscribe(
       response => {
-        this.BranchesData = response.branches;
-        this.totalCount = response.totalCount;
+        if (response.branches.length === 0) {
+          console.log('No results found');
+          this.clearFilter();
+        } else {
+          this.BranchesData = response.branches;
+          this.totalCount = response.totalCount;
+        }
       },
       error => {
         console.log('An error occurred: ', error);
-        alert('No results found');
-        this.clearFilter();
+        alert('An error occurred while fetching branches.');
       }
     );
   }
@@ -77,7 +82,6 @@ export class AboutComponent implements OnInit {
         }, 
         queryParamsHandling: 'merge' 
       });
-      this.loadBranchData();
     }
   }
 
@@ -118,6 +122,7 @@ export class AboutComponent implements OnInit {
     });
     this.loadBranchData();
   }
+  
 
   clearFilter() {
     this.myForm.reset();
@@ -125,6 +130,6 @@ export class AboutComponent implements OnInit {
       BrancheName: '',
       Username: ''
     };
-    this.loadBranchData();
+    this.loadBranchData(); 
   }
 }

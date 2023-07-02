@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router'; // add this import
-
 import { UserService } from '../../../services/user.service';
 import { AddUsers } from '../../../interfaces/users';
 import { BranchService } from '../../../services/branch.service';
-import { GetBranch,BranchApiResponse } from '../../../interfaces/branch';
+import { GetBranch } from '../../../interfaces/branch';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-user',
@@ -15,8 +14,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class AddUserComponent implements OnInit {
   myForm: FormGroup | any;
-  branches: GetBranch[] = []
-  branchesName: [] = []
+  branches: GetBranch[] = [];
+  message: string = '';  
+  showMessage: boolean = false;  
 
   generatedPassword: string = ''; 
 
@@ -25,13 +25,11 @@ export class AddUserComponent implements OnInit {
     private userService: UserService,
     private branchService: BranchService,
     private snackBar: MatSnackBar,
-    private route: ActivatedRoute
+    private router: Router
   ) { }
   
   ngOnInit(): void {
-    this.route.data.subscribe(data => {
-      this.branches = data['branches'];
-    });
+    this.loadBranches();
 
     this.myForm = this.fb.group({
       email: ["", [Validators.required, Validators.email]],
@@ -40,11 +38,18 @@ export class AddUserComponent implements OnInit {
       firstName: ["", Validators.required],
       lastName: ["", Validators.required],
       role: ["", Validators.required],
-      branchId: ["", Validators.required],
-    })    
+      branchId: [null], // Changed "" to null
+    });
   }
 
-  generatePassword() {
+  loadBranches(): void {
+    this.branchService.getBranches({}, 1, 5).subscribe(
+      (res) => this.branches = res.branches,
+      (err) => console.error(err)
+    );
+  }
+
+  generatePassword(): void {
     const length = 8;
     const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     let retVal = "";
@@ -58,20 +63,27 @@ export class AddUserComponent implements OnInit {
   }
   
   addUser(data: AddUsers): void {
-    console.log(data)
+    data.password = this.generatedPassword;
+  
     this.userService.AddUser(data).subscribe((res) => {
-      console.log("pasuxi", res)
-      console.log(data);
+      console.log("Response", res);
+      console.log("Submitted data", data);
+      this.message = res.message;  
       this.myForm.reset();
-      this.snackBar.open(res.message, 'Close', {
-        duration: 3000,
-      });
-    })
+  
+      // Show the message and then hide it after 5 seconds
+      this.showMessage = true;
+      setTimeout(() => this.showMessage = false, 5000); 
+      this.router.navigateByUrl('/user') 
+
+    });
   }
+  
 
   onFormSubmit(form: FormGroup): void {
-    const formValueWithPassword = { ...form.value, password: this.generatedPassword };
-    
+    let formValue = { ...form.value };
+    const formValueWithPassword = { ...formValue, password: this.generatedPassword };
     this.addUser(formValueWithPassword);  
   }
+  
 }

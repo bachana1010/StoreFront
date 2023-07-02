@@ -56,6 +56,12 @@ export class ProductService {
           return throwError(error);
         })
       );
+
+      
+      
+  }
+  getdashboard(): Observable<any> {
+    return this.http.get<any>(`${this.endpoint}api/Product/dashboard`);
   }
 
 }

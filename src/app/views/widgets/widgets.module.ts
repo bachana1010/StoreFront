@@ -18,7 +18,7 @@ import { DocsComponentsModule } from '@docs-components/docs-components.module';
 import { WidgetsRoutingModule } from './widgets-routing.module';
 import { WidgetsComponent } from './widgets/widgets.component';
 import { WidgetsBrandComponent } from './widgets-brand/widgets-brand.component';
-import { ChartSample, WidgetsDropdownComponent } from './widgets-dropdown/widgets-dropdown.component';
+import {  WidgetsDropdownComponent } from './widgets-dropdown/widgets-dropdown.component';
 import { WidgetsEComponent } from './widgets-e/widgets-e.component';
 
 @NgModule({
@@ -26,7 +26,6 @@ import { WidgetsEComponent } from './widgets-e/widgets-e.component';
     WidgetsComponent,
     WidgetsBrandComponent,
     WidgetsDropdownComponent,
-    ChartSample,
     WidgetsEComponent
   ],
   imports: [

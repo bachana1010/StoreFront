@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AddBranch } from '../../../interfaces/branch';
 import { BranchService } from '../../../services/branch.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 
 
@@ -15,10 +16,13 @@ export class AddBranchComponent implements OnInit {
 
   myForm: FormGroup | any;
   branchesName: [] = []
+  message: string = '';  
+  showMessage: boolean = false;  
 
   constructor(private fb: FormBuilder, 
     private branchService: BranchService,
-    private snackBar: MatSnackBar) { }
+    private snackBar: MatSnackBar,
+    private router: Router) { }
 
     ngOnInit(): void {
 
@@ -29,17 +33,21 @@ export class AddBranchComponent implements OnInit {
     })   
   }
 
-  addBranch(form: FormGroup): void {  
-    console.log(form.value)
-
+ addBranch(form: FormGroup): void {  
     this.branchService.AddBranch(form.value).subscribe((res) => {
-      console.log("pasuxi", res)
+      console.log("Response", res);
+      this.message = res.message;  
       this.myForm.reset();
-      
-    this.snackBar.open(res.message, 'Close', {
-      duration: 3000, 
-    });
-    })
-  }
-}
 
+      // Show the message and then hide it after 5 seconds
+      this.showMessage = true;
+      setTimeout(() => this.showMessage = false, 3000);  // added this line
+      this.router.navigateByUrl('/branch') 
+
+    });
+  }
+    
+  }
+
+
+  

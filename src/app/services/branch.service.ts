@@ -34,11 +34,11 @@ export class BranchService {
       }
       
   
-    return this.http.get<BranchResponse>(this.endpoint, { params: params })
+      return this.http.get<BranchResponse>(this.endpoint, { params: params })
       .pipe(
         tap(response => {
-          if (!response || (response && response.branches && response.branches.length === 0)) {
-            throw new Error('No results found');
+          if (!response) {
+            throw new Error('No response from server');
           }
         }),
         catchError(error => {
@@ -46,6 +46,7 @@ export class BranchService {
           return throwError(error);
         })
       );
+    
   }
 
   deleteBranch(id: number): Observable<any> {
