@@ -69,8 +69,11 @@
                         <th scope="col">#</th>
                         <th scope="col">Barcode</th>
                         <th scope="col">Name</th>
+                
+
                         <th scope="col">Price</th>
                         <th scope="col">Quantity</th>
+                        <th scope="col">unit</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -78,9 +81,11 @@
                         <tr>
                           <th scope="row">{{ i + 1 }}</th>
                           <td>{{product.barcode}}</td>
-                          <td>{{product.name}} {{product.unit}}</td>
+                          <td>{{product.name}} </td>
                           <td>{{product.price}}</td>
                           <td>{{product.quantity}}</td>
+                          <td>{{product.unit}}</td>
+
                         </tr>
                       </ng-container>
                     </tbody>

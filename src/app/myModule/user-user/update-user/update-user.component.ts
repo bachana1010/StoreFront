@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../../services/user.service';
 import { Users, UserApiResponse, updateUsers} from '../../../interfaces/users';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -25,7 +25,9 @@ constructor(
             private fb: FormBuilder, 
             private route: ActivatedRoute,
             private userService: UserService,
-            private branchService: BranchService
+            private branchService: BranchService,
+            private router: Router
+
             ) { }
 
 
@@ -117,6 +119,8 @@ constructor(
         this.userService.updateUser(id, user).subscribe((res) => {
           console.log(formValueWithPassword.id, "es aidia?")
           this.myForm.reset();
+          this.router.navigateByUrl('/user') 
+
         });
       } else {
         console.log("ID is null");

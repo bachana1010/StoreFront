@@ -52,7 +52,7 @@ export class AboutComponent implements OnInit {
     this.route.queryParamMap.subscribe(params => {
       this.pageNumber = Number(params.get('pageNumber')) || 1;
       this.pageSize = Number(params.get('pageSize')) || 5;
-      this.loadData();
+      // this.loadData();
     });
   }
 
@@ -119,6 +119,8 @@ export class AboutComponent implements OnInit {
     }, 
     queryParamsHandling: 'merge' 
   });
+  // this.loadData();
+
 }
 
   
@@ -130,6 +132,6 @@ export class AboutComponent implements OnInit {
       email: '',
       role: ''
     };
-    this.loadData();
-  }
-}
+    this.router.navigate([], { queryParams: { pageNumber: this.pageNumber, pageSize: this.pageSize }, queryParamsHandling: 'merge' });
+  }  }
+

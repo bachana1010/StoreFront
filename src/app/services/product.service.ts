@@ -52,7 +52,7 @@ export class ProductService {
           }
         }),
         catchError(error => {
-          console.error(error);
+          console.error(error, "es erori");
           return throwError(error);
         })
       );

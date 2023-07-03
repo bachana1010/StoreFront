@@ -1,6 +1,5 @@
 import { INavData } from '@coreui/angular';
 
-// Define nav items for each role
 export const adminNavItems: INavData[] = [
   { name: 'User', url: '/user', iconComponent: { name: 'cil-drop' } },
   { name: 'Branch', url: '/branch', iconComponent: { name: 'cil-drop' } },

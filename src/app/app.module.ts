@@ -8,13 +8,10 @@ import { ToastrModule } from 'ngx-toastr';
 
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
-// Import routing module
 import { AppRoutingModule } from './app-routing.module';
 
-// Import app component
 import { AppComponent } from './app.component';
 
-// Import containers
 import { DefaultFooterComponent, DefaultHeaderComponent, DefaultLayoutComponent } from './containers';
 
 import {

@@ -1,7 +1,9 @@
+
 import { Component, Renderer2 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
 import { Router } from '@angular/router';
+import { passwordComplexityValidator } from 'src/app/passwordvalidation/password_validation'; 
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
@@ -29,7 +31,7 @@ export class SignUpComponent {
       FirstName: ["", Validators.required],
       LastName: ["", Validators.required],
       UserName: ["", Validators.required],
-      Password: ["", [Validators.required, Validators.minLength(6)]],
+      Password: ["", [Validators.required, Validators.minLength(6), passwordComplexityValidator]], 
       confirmPassword: ["", Validators.required]
     });
 
@@ -72,6 +74,25 @@ export class SignUpComponent {
           alert("Registration failed: " + err.statusText + ". Try again");
         }
       }
-    );
-  } 
+    );}
+  
+  hasLength(password: string): boolean {
+    return password.length >= 6;
+  }
+
+  hasUpper(password: string): boolean {
+    return /[A-Z]/.test(password);
+  }
+
+  hasLower(password: string): boolean {
+    return /[a-z]/.test(password);
+  }
+
+  hasNumeric(password: string): boolean {
+    return /[0-9]/.test(password);
+  }
+
+  hasSymbol(password: string): boolean {
+    return /\W/.test(password);
+  }
 }

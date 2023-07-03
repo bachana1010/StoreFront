@@ -15,7 +15,6 @@ export class DefaultLayoutComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.authService.loggedIn()) {
-      // Get user role from localStorage
       const userRole = localStorage.getItem('UserRole');
 
       switch(userRole) {
@@ -29,11 +28,9 @@ export class DefaultLayoutComponent implements OnInit {
           this.navItems = managerNavItems;
           break;
         default:
-          // Handle unknown role
           console.warn(`Unknown user role: ${userRole}`);
       }
     } else {
-      // If user is not logged in, show Login and Registration options
       this.navItems = loggedOutNavItems;
     }
   }

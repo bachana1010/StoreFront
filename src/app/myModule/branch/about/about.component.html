@@ -9,10 +9,10 @@
               <input cFormControl id="BrancheName" type="text" formControlName="BrancheName">
             </c-col>
 
-            <c-col [md]="3" class="mb-4">
+            <!-- <c-col [md]="3" class="mb-4">
               <label cLabel for="addedByUserName">Username</label>
               <input cFormControl id="addedByUserName" type="text" formControlName="Username">
-            </c-col>
+            </c-col> -->
 
             <c-col [md]="2" class="mb-4">
               <button cButton type="submit">Filter</button>
@@ -29,7 +29,6 @@
             <tr>
               <th scope="col">#</th>
               <th scope="col">Branch Name</th>
-              <th scope="col">Added By</th>
               <th scope="col">Actions</th>
             </tr>
           </thead>
@@ -38,7 +37,7 @@
               <tr>
                 <th scope="row">{{oneBranch.id}}</th>
                 <td>{{oneBranch.brancheName}}</td>
-                <td>{{oneBranch.addedByUserId}}</td>
+                <!-- <td>{{oneBranch.addedByUserId}}</td> -->
                 <td>
                   <button cButton color="warning" (click)="navigateToUpdate(oneBranch.id)">Update</button>
                   <button cButton color="danger" title="Delete" (click)="deleteBranch(oneBranch)">Delete</button>

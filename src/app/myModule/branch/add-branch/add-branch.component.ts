@@ -39,9 +39,8 @@ export class AddBranchComponent implements OnInit {
       this.message = res.message;  
       this.myForm.reset();
 
-      // Show the message and then hide it after 5 seconds
       this.showMessage = true;
-      setTimeout(() => this.showMessage = false, 3000);  // added this line
+      setTimeout(() => this.showMessage = false, 3000);  
       this.router.navigateByUrl('/branch') 
 
     });

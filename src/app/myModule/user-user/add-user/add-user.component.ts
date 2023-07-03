@@ -16,9 +16,8 @@ export class AddUserComponent implements OnInit {
   myForm: FormGroup | any;
   branches: GetBranch[] = [];
   message: string = '';  
-  showMessage: boolean = false;  
-
-  generatedPassword: string = ''; 
+  showMessage: boolean = false;
+  audio = new Audio();
 
   constructor(
     private fb: FormBuilder, 
@@ -27,18 +26,18 @@ export class AddUserComponent implements OnInit {
     private snackBar: MatSnackBar,
     private router: Router
   ) { }
-  
+
   ngOnInit(): void {
     this.loadBranches();
 
     this.myForm = this.fb.group({
       email: ["", [Validators.required, Validators.email]],
       userName: ["", Validators.required],
-      password: [{value: '', disabled: false}],
+      password: ["", Validators.required],
       firstName: ["", Validators.required],
       lastName: ["", Validators.required],
       role: ["", Validators.required],
-      branchId: [null], // Changed "" to null
+      branchId: [null],
     });
   }
 
@@ -56,34 +55,33 @@ export class AddUserComponent implements OnInit {
     for (let i = 0, n = charset.length; i < length; ++i) {
       retVal += charset.charAt(Math.floor(Math.random() * n));
     }
-
-    this.generatedPassword = retVal;
     this.myForm.controls['password'].setValue(retVal);
-    this.myForm.controls['password'].disable();
   }
   
   addUser(data: AddUsers): void {
-    data.password = this.generatedPassword;
-  
     this.userService.AddUser(data).subscribe((res) => {
       console.log("Response", res);
       console.log("Submitted data", data);
       this.message = res.message;  
       this.myForm.reset();
   
-      // Show the message and then hide it after 5 seconds
       this.showMessage = true;
       setTimeout(() => this.showMessage = false, 5000); 
       this.router.navigateByUrl('/user') 
-
     });
   }
   
-
   onFormSubmit(form: FormGroup): void {
-    let formValue = { ...form.value };
-    const formValueWithPassword = { ...formValue, password: this.generatedPassword };
-    this.addUser(formValueWithPassword);  
+    if (form.valid) {
+      // this.playClickSound();
+      this.addUser(form.value);
+    }
   }
-  
+
+
+  playClickSound(): void {
+    this.audio.src = "/assets/add-user.mp3";
+    this.audio.load();
+    this.audio.play();
+  }
 }

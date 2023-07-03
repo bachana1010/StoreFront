@@ -49,7 +49,7 @@ export class AboutComponent implements OnInit {
       this.filter.Username = params.get('Username') || '';
     });
 
-    this.loadBranchData(); 
+    // this.loadBranchData(); 
   }
 
   loadBranchData() {
@@ -98,16 +98,19 @@ export class AboutComponent implements OnInit {
   }
 
   deleteBranch(branch: GetBranch) {
-    this.branchService.deleteBranch(branch.id).subscribe(
-      () => {
-        console.log(`Branch with id ${branch.id} deleted successfully.`);
-        this.loadBranchData();
-      },
-      error => {
-        console.log(`Error occurred while deleting branch: ${error}`);
-      }
-    );
+    if (confirm("Are you sure to delete branch with id " + branch.brancheName + "?")) {
+      this.branchService.deleteBranch(branch.id).subscribe(
+        () => {
+          console.log(`Branch with id ${branch.id} deleted successfully.`);
+          this.loadBranchData();
+        },
+        error => {
+          console.log(`Error occurred while deleting branch: ${error}`);
+        }
+      );
+    }
   }
+  
 
   applyFilter() {
     this.filter = this.myForm.value;
@@ -116,7 +119,6 @@ export class AboutComponent implements OnInit {
         pageNumber: this.pageNumber, 
         pageSize: this.pageSize, 
         BrancheName: this.filter.BrancheName, 
-        Username: this.filter.Username
       }, 
       queryParamsHandling: 'merge' 
     });

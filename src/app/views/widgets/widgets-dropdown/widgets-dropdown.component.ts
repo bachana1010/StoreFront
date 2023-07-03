@@ -27,7 +27,7 @@ export class WidgetsDropdownComponent implements OnInit {
 
   ngOnInit(): void {
     this.productService.getdashboard().subscribe(data => {
-      this.dashboardData = data as any;  // typecast unknown to any
+      this.dashboardData = data as any;  
       console.log(this.dashboardData);
      
     }, error => {

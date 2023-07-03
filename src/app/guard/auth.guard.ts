@@ -13,7 +13,6 @@ import { AuthService } from '../services/auth.service';
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot
       ): boolean {
-        // Check if the token has expired
         // if (this.authService.isTokenExpired()) {
         //   // this.authService.clearExpiredToken();
         //   // Navigate to the login page or show a message
@@ -21,8 +20,7 @@ import { AuthService } from '../services/auth.service';
         //   return false;
         // }
 
-        // Check user role
-        const currentUserRole = localStorage.getItem('UserRole'); // Get the role of current user
+        const currentUserRole = localStorage.getItem('UserRole');
         const requiredRoles = route.data['UserRole'];
 
         if (requiredRoles) {

@@ -24,6 +24,8 @@ export class GoodsInComponent {
   myForm: FormGroup | any;
   branches: GetBranch[] = []
   branchesName: [] = []
+  audio = new Audio();
+
 
   constructor(
     private fb: FormBuilder, 
@@ -62,7 +64,12 @@ export class GoodsInComponent {
       });
       })
     }
-  
+    playClickSound(): void {
+      this.audio.src = "/assets/add-user.mp3";
+      this.audio.load();
+      this.audio.play();
+    }
+    
     onPaste(event: ClipboardEvent) {
       let pastedText = event.clipboardData?.getData('text');
     
