@@ -63,10 +63,13 @@ export class ListComponent implements OnInit {
     },
     error => {
       console.log("An error occurred: ", error);
-      alert('No results found');
-      this.clearFilter();
+      if (this.ProductData.length === 0) { // Only show alert when the ProductData is empty
+        alert('No results found');
+        this.myForm.reset()
+      }
     });
   }
+  
 
   changePage(newPageNumber: number) {
     if ((newPageNumber - 1) * this.pageSize < this.totalCount) {
@@ -99,7 +102,7 @@ export class ListComponent implements OnInit {
       }, 
       queryParamsHandling: 'merge' 
     });
-    this.loadData();
+    // this.loadData();
   }
 
   clearFilter() {

@@ -18,9 +18,9 @@ export class GoodsOutListComponent implements OnInit {
   pageNumber: number = 1;
 
   filter: GoodsoutFilter = {
-    quantity: undefined,
+    quantityValue: undefined,
     quantityOperator: undefined,
-    dateFrom: undefined,
+    outDate: undefined,
     dateTo: undefined
   };
 
@@ -36,9 +36,9 @@ export class GoodsOutListComponent implements OnInit {
   ngOnInit(): void {
     console.log(this.managerGoodsout);
     this.filterForm = this.fb.group({
-      quantity: [''],
+      quantityValue: [''],
       quantityOperator: [''],
-      entryDate: [''],
+      outDate: [''],
       dateFrom: [''],
       dateTo: ['']
     });
@@ -46,10 +46,9 @@ export class GoodsOutListComponent implements OnInit {
     this.route.queryParamMap.subscribe(params => {
       this.pageNumber = Number(params.get('pageNumber')) || 1;
       this.pageSize = Number(params.get('pageSize')) || 5;
-      this.filter.quantity = Number(params.get('quantity')) || undefined;
+      this.filter.quantityValue = Number(params.get('quantityValue')) || undefined;
       this.filter.quantityOperator = params.get('quantityOperator') || undefined;
-      // this.filter.entryDate = params.get('entryDate') || undefined;
-      this.filter.dateFrom = params.get('dateFrom') || undefined;
+      this.filter.outDate = params.get('outDate') || undefined;
       this.filter.dateTo = params.get('dateTo') || undefined;
 
       this.loadGoodsOutData();
@@ -63,13 +62,39 @@ export class GoodsOutListComponent implements OnInit {
         this.managerGoodsout = response.results;
         this.totalCount = response.totalCount;
         console.log(this.managerGoodsout);
+  
+        if (!this.managerGoodsout || this.managerGoodsout.length === 0) {
+          window.alert('No results found.');
+        }
       },
       (error) => {
         console.log('An error occurred: ', error);
+  
+        if (error.status === 404) {
+          window.alert('No results found. Error. Fetching all data again.');
+  
+          this.filterForm.reset();
+          this.filter = {
+            quantityValue: undefined,
+            quantityOperator: undefined,
+            outDate: undefined,
+            dateTo: undefined,
+            dateFrom:undefined
+          };
+  
+          this.router.navigate([], { 
+            queryParams: { 
+              pageNumber: 1, 
+              pageSize: this.pageSize
+            }
+          });
+  
+          this.loadGoodsOutData();
+        }
       }
     );
   }
-
+  
   changePage(newPageNumber: number) {
     if ((newPageNumber - 1) * this.pageSize < this.totalCount) {
       this.pageNumber = newPageNumber;
@@ -93,10 +118,11 @@ export class GoodsOutListComponent implements OnInit {
       queryParams: { 
         pageNumber: this.pageNumber, 
         pageSize: this.pageSize, 
-        quantity: this.filter.quantity,
+        quantityValue: this.filter.quantityValue,
         quantityOperator: this.filter.quantityOperator,
-        // entryDate: this.filter.entryDate,
+        outDate: this.filter.outDate,
         dateFrom: this.filter.dateFrom,
+
         dateTo: this.filter.dateTo
       }, 
       queryParamsHandling: 'merge' 
@@ -107,12 +133,14 @@ export class GoodsOutListComponent implements OnInit {
   clearFilter(): void {
     this.filterForm.reset();
     this.filter = {
-      quantity: undefined,
+      quantityValue: undefined,
       quantityOperator: undefined,
-      // entryDate: undefined,
-      dateFrom: undefined,
-      dateTo: undefined
+      outDate: undefined,
+      dateTo: undefined,
+      dateFrom:undefined
+
     };
+
     this.router.navigate([], { 
       queryParams: { 
         pageNumber: this.pageNumber, 

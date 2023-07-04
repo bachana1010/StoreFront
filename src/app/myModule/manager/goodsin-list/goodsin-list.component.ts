@@ -63,12 +63,40 @@ export class GoodsinListComponent implements OnInit {
         this.managerGoodsin = response.results;
         this.totalCount = response.totalCount;
         console.log(this.managerGoodsin);
+    
+        if (!this.managerGoodsin || this.managerGoodsin.length === 0) {
+          window.alert('No results found.');
+        }
       },
       (error) => {
         console.log('An error occurred: ', error);
+    
+        if (error.status === 404) {
+          window.alert('No results found. Error. Fetching all data again.');
+          
+          this.filterForm.reset();
+          this.filter = {
+            quantity: undefined,
+            quantityOperator: undefined,
+            entryDate: undefined,
+            dateFrom: undefined,
+            dateTo: undefined
+          };
+    
+          this.router.navigate([], { 
+            queryParams: { 
+              pageNumber: 1, 
+              pageSize: this.pageSize
+            }
+          });
+  
+          this.loadGoodsinData();
+        }
       }
     );
   }
+  
+  
 
   changePage(newPageNumber: number) {
     if ((newPageNumber - 1) * this.pageSize < this.totalCount) {
@@ -101,7 +129,7 @@ export class GoodsinListComponent implements OnInit {
       }, 
       queryParamsHandling: 'merge' 
     });
-    this.loadGoodsinData();
+    // this.loadGoodsinData();
   }
 
   clearFilter(): void {
@@ -119,6 +147,6 @@ export class GoodsinListComponent implements OnInit {
         pageSize: this.pageSize
       }
     });
-    this.loadGoodsinData();
+    // this.loadGoodsinData();
   }
 }

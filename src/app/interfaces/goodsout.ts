@@ -7,9 +7,13 @@ export interface GoodsiOut {
   export type GoodsinAddApiResponse = GoodsiOut[];
   
   export interface GoodsoutFilter {
-    quantity?: number;
+    quantityValue?: number;
     quantityOperator?: string;
     dateFrom?: string;
     dateTo?: string;
+    outDate?: string;
   }
+  
+  
+  
   
