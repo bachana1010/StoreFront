@@ -57,6 +57,8 @@ export class AboutComponent implements OnInit {
       response => {
         if (response.branches.length === 0) {
           console.log('No results found');
+          alert('No results found');
+
           this.clearFilter();
         } else {
           this.BranchesData = response.branches;

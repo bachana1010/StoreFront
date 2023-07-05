@@ -55,14 +55,19 @@ constructor(
     }
     
     getUserByid(id: number) {
-        this.userService.getUserById(id).subscribe((response: UserApiResponse) => {
+      this.userService.getUserById(id).subscribe((response: UserApiResponse) => {
           this.UserData = response;  
           this.DataForUpdate = response;
-
           console.log(this.UserData);
-          
-        });
+  
+          if (this.DataForUpdate.role === 'operator' || this.DataForUpdate.role === 'manager') {
+              this.myForm.controls['role'].disable();
+          } else {
+              this.myForm.controls['role'].enable();
           }
+      });
+  }
+  
 
     generatePassword() {
       const length = 8; 
@@ -101,33 +106,38 @@ constructor(
       const id = this.route.snapshot.paramMap.get('id');
       
       if (id !== null) {
-        const formValueWithPassword = { ...form.getRawValue(), Password: this.generatedPassword };
-    
-        let user: updateUsers = {
-          Id: formValueWithPassword.id, 
-          FirstName: formValueWithPassword.firstName,
-          LastName: formValueWithPassword.lastName,
-          Email: formValueWithPassword.email,
-          Username: formValueWithPassword.userName
-        };
-    
-        //  add password 
-        if (formValueWithPassword.Password !== '') {
-          user = { ...user, Password: formValueWithPassword.Password }
-        }
-        
-        this.userService.updateUser(id, user).subscribe((res) => {
-          console.log(formValueWithPassword.id, "es aidia?")
-          this.myForm.reset();
-          this.router.navigateByUrl('/user') 
+          const formValue = form.getRawValue();
+  
+          let user: updateUsers = {
+              Id: formValue.id, 
+              FirstName: formValue.firstName,
+              LastName: formValue.lastName,
+              Email: formValue.email,
+              Username: formValue.userName,
+          };
+          
+          // add password 
+          if (formValue.password && formValue.password !== '') {
+              // tu cahwera
+              user = { ...user, Password: formValue.password };
 
-        });
+          } else if (this.generatedPassword && this.generatedPassword !== '') {
+              // tu daagenerira
+              user = { ...user, Password: this.generatedPassword };
+          } else {
+              console.error("No password provided.");
+              return;
+          }
+  
+          this.userService.updateUser(id, user).subscribe((res) => {
+              this.myForm.reset();
+              this.router.navigateByUrl('/user'); 
+          });
       } else {
-        console.log("ID is null");
+          console.log("ID is null");
       }
-    }
-    
-    
+  }
+  
     
   
           

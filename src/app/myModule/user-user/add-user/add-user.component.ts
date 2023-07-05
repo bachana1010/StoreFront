@@ -59,19 +59,42 @@ export class AddUserComponent implements OnInit {
   }
   
   addUser(data: AddUsers): void {
-    this.userService.AddUser(data).subscribe((res) => {
-      console.log("Response", res);
-      console.log("Submitted data", data);
-      this.message = res.message;  
-      this.myForm.reset();
+    console.log('addUser called');
+
+    this.userService.AddUser(data).subscribe(
+      (res) => {
+        console.log("Response", res);
+        console.log("Submitted data", data);
+        this.message = res.message;  
+        this.myForm.reset();
   
-      this.showMessage = true;
-      setTimeout(() => this.showMessage = false, 5000); 
-      this.router.navigateByUrl('/user') 
-    });
+        this.showMessage = true;
+        setTimeout(() => this.showMessage = false, 5000); 
+        this.router.navigateByUrl('/user');
+      },
+      (err) => {
+        console.error('An error occurred:', err);
+        if (err.error && err.error.message) {
+          console.log('Error message:', err.error.message);
+          if (err.error.message.includes('duplicate key value')) {
+            alert('This email already exists!');
+          } else {
+            alert('An error occurred. Please try again.');
+          }
+        } else {
+          alert('An error occurred, but no error message was available.');
+        }
+        this.myForm.reset()
+
+      }
+    );
   }
   
+  
+  
   onFormSubmit(form: FormGroup): void {
+    console.log('onformsubmit called');
+
     if (form.valid) {
       // this.playClickSound();
       this.addUser(form.value);

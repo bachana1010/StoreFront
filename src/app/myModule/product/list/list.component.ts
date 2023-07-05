@@ -62,10 +62,12 @@ export class ListComponent implements OnInit {
       console.log(this.ProductData);
     },
     error => {
+
       console.log("An error occurred: ", error);
-      if (this.ProductData.length === 0) { // Only show alert when the ProductData is empty
+      if (error.status === 404) { 
         alert('No results found');
         this.myForm.reset()
+        
       }
     });
   }

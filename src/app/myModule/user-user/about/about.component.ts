@@ -69,6 +69,8 @@ export class AboutComponent implements OnInit {
         console.log("An error occurred: ", error);
         alert('No results found');
         this.clearFilter();
+        this.loadData(); 
+
       }
     );
   }
@@ -108,20 +110,21 @@ export class AboutComponent implements OnInit {
   //filtrebi
 
   applyFilter() {
-  this.filter = this.myForm.value;
-  this.router.navigate([], { 
-    queryParams: { 
-      pageNumber: this.pageNumber, 
-      pageSize: this.pageSize, 
-      role: this.filter.role, 
-      email: this.filter.email, 
-      username: this.filter.username 
-    }, 
-    queryParamsHandling: 'merge' 
-  });
-  // this.loadData();
-
-}
+    console.log("es")
+    this.filter = this.myForm.value;
+    this.router.navigate([], { 
+      queryParams: { 
+        pageNumber: this.pageNumber, 
+        pageSize: this.pageSize, 
+        role: this.filter.role, 
+        email: this.filter.email, 
+        Username: this.filter.username 
+      }, 
+      queryParamsHandling: 'merge' 
+    });
+    this.loadData(); 
+  }
+  
 
   
 

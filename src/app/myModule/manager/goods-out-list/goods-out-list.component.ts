@@ -89,7 +89,7 @@ export class GoodsOutListComponent implements OnInit {
             }
           });
   
-          this.loadGoodsOutData();
+          // this.loadGoodsOutData();
         }
       }
     );

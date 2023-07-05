@@ -63,17 +63,16 @@ export class GoodsinListComponent implements OnInit {
         this.managerGoodsin = response.results;
         this.totalCount = response.totalCount;
         console.log(this.managerGoodsin);
-    
+  
         if (!this.managerGoodsin || this.managerGoodsin.length === 0) {
           window.alert('No results found.');
         }
       },
       (error) => {
+        
         console.log('An error occurred: ', error);
-    
         if (error.status === 404) {
-          window.alert('No results found. Error. Fetching all data again.');
-          
+          alert('No results found');
           this.filterForm.reset();
           this.filter = {
             quantity: undefined,
@@ -82,19 +81,12 @@ export class GoodsinListComponent implements OnInit {
             dateFrom: undefined,
             dateTo: undefined
           };
-    
-          this.router.navigate([], { 
-            queryParams: { 
-              pageNumber: 1, 
-              pageSize: this.pageSize
-            }
-          });
-  
-          this.loadGoodsinData();
+          // this.loadGoodsinData();
         }
       }
     );
   }
+  
   
   
 
