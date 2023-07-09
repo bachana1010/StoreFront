@@ -57,7 +57,7 @@
                           <td>{{oneuser.role}}</td>
                           <td>
                             <button cButton color="warning" (click)="navigateToUpdate(oneuser.id)">Update</button>
-                            <button cButton color="danger" title="Delete" (click)="deleteUser(oneuser)">Delete</button>
+                            <button cButton color="danger" title="Delete" (click)="deleteUser(oneuser)" *ngIf="oneuser.role != 'administrator'">Delete</button>
                           </td>
                         </tr>
                       </ng-container>

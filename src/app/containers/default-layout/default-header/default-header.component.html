@@ -13,20 +13,51 @@
       ></svg>
     </button>
     <c-header-nav class="d-none d-lg-flex me-auto">
-      <c-nav-item>
-        <a cNavLink routerLink="/dashboard" routerLinkActive="active">
-          Dashboard
-        </a>
-      </c-nav-item>
-      <c-nav-item>
-        <a cNavLink routerLink="/user" routerLinkActive="active">Users</a>
-      </c-nav-item>
-      <c-nav-item>
-        <a cNavLink routerLink="/branch" routerLinkActive="active">branch</a>
-      </c-nav-item>
-      <c-nav-item>
+
+      <div style="display: flex;">
+
+        <!-- operator -->
+        <c-nav-item *ngIf="userRole === 'operator'">
+          <a cNavLink routerLink="/products/goodsin" routerLinkActive="active">GoodsIn</a>
+        </c-nav-item>
+        
+        <c-nav-item *ngIf="userRole === 'operator'">
+          <a cNavLink routerLink="/products/goodsout" routerLinkActive="active">GoodsOut</a>
+        </c-nav-item>
+        
+        <c-nav-item *ngIf="userRole === 'operator' || userRole === 'manager'">
+          <a cNavLink routerLink="/products" routerLinkActive="active">Products</a>
+        </c-nav-item>
       
-      </c-nav-item>
+        <!-- manager -->
+        <c-nav-item *ngIf="userRole === 'manager'">
+          <a cNavLink routerLink="/manager/goodsin" routerLinkActive="active">GoodsIn</a>
+        </c-nav-item>
+        
+        <c-nav-item *ngIf="userRole === 'manager'">
+          <a cNavLink routerLink="/manager/goodsout" routerLinkActive="active">GoodsOut</a>
+        </c-nav-item>
+
+
+        <!-- administrator -->
+        <c-nav-item *ngIf="userRole === 'administrator'">
+          <a cNavLink routerLink="/dashboard" routerLinkActive="active">dashboard</a>
+        </c-nav-item>
+
+        <c-nav-item *ngIf="userRole === 'administrator'">
+          <a cNavLink routerLink="/branch" routerLinkActive="active">branch</a>
+        </c-nav-item>
+        
+        <c-nav-item *ngIf="userRole === 'administrator'">
+          <a cNavLink routerLink="/user" routerLinkActive="active">user</a>
+        </c-nav-item>
+      
+      
+      
+      </div>
+      
+        
+      
     </c-header-nav>
 
     <c-header-nav class="d-none d-lg-flex">

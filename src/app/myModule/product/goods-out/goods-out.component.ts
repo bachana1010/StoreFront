@@ -71,9 +71,8 @@ export class GoodsOutComponent implements OnInit  {
         console.log(error, " es eroria")
         this.myForm.reset();
 
-        this.toastr.error(error.error);
 
-        alert(error.error);
+        alert(error.error.error);
       });}
 
       playClickSound(): void {

@@ -43,6 +43,10 @@ export class AuthService {
 
   logoutUser(){
     localStorage.removeItem("Authorization");
+    localStorage.removeItem("UserRole");
+    localStorage.removeItem("username");
+
+
     // localStorage.removeItem("refreshToken"); 
     localStorage.removeItem("ID"); 
 

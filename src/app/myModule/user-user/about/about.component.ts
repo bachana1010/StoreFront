@@ -135,6 +135,8 @@ export class AboutComponent implements OnInit {
       email: '',
       role: ''
     };
-    this.router.navigate([], { queryParams: { pageNumber: this.pageNumber, pageSize: this.pageSize }, queryParamsHandling: 'merge' });
+    // this.router.navigate([], { queryParams: { pageNumber: this.pageNumber, pageSize: this.pageSize }, queryParamsHandling: 'merge' });
+    this.loadData(); 
+
   }  }
 

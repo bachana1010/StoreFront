@@ -1,6 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-
 import { ClassToggleService, HeaderComponent } from '@coreui/angular';
 
 @Component({
@@ -15,7 +13,10 @@ export class DefaultHeaderComponent extends HeaderComponent {
   public newTasks = new Array(5)
   public newNotifications = new Array(5)
 
+  userRole: 'manager' | 'operator' | 'administrator';  
+
   constructor(private classToggler: ClassToggleService) {
     super();
+    this.userRole = localStorage.getItem('UserRole') as 'manager' | 'operator'  | 'administrator'; 
   }
 }

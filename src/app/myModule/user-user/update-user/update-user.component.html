@@ -42,13 +42,13 @@
                   <input cFormControl id="inputEmail4" type="email"  formControlName="lastName" [(ngModel)]="DataForUpdate.lastName">
                 </c-col>
 <c-form-check>
-    <input cFormCheckInput type="radio" value="operator" name="role" formControlName="role" [checked]="DataForUpdate.role === 'operator'" />
-    <label cFormCheckLabel>operator</label>
+    <input cFormCheckInput type="radio" value="operator" name="role" formControlName="role" [checked]="DataForUpdate.role === 'operator'" *ngIf="DataForUpdate.role != 'administrator'"/>
+    <label cFormCheckLabel *ngIf="DataForUpdate.role != 'administrator'">operator</label>
 </c-form-check>
 
 <c-form-check>
-    <input cFormCheckInput type="radio" value="manager" name="role" formControlName="role" [checked]="DataForUpdate.role === 'manager'" />
-    <label cFormCheckLabel>manager</label>
+    <input cFormCheckInput type="radio" value="manager" name="role" formControlName="role" [checked]="DataForUpdate.role === 'manager'" *ngIf="DataForUpdate.role != 'administrator'"/>
+    <label cFormCheckLabel *ngIf="DataForUpdate.role != 'administrator'">manager</label>
 </c-form-check>
 
                 

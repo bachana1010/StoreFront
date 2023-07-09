@@ -104,40 +104,35 @@ constructor(
 
     updateUser(form: FormGroup) {
       const id = this.route.snapshot.paramMap.get('id');
-      
-      if (id !== null) {
-          const formValue = form.getRawValue();
-  
-          let user: updateUsers = {
-              Id: formValue.id, 
-              FirstName: formValue.firstName,
-              LastName: formValue.lastName,
-              Email: formValue.email,
-              Username: formValue.userName,
-          };
           
-          // add password 
-          if (formValue.password && formValue.password !== '') {
-              // tu cahwera
-              user = { ...user, Password: formValue.password };
-
-          } else if (this.generatedPassword && this.generatedPassword !== '') {
-              // tu daagenerira
-              user = { ...user, Password: this.generatedPassword };
-          } else {
-              console.error("No password provided.");
-              return;
-          }
-  
-          this.userService.updateUser(id, user).subscribe((res) => {
-              this.myForm.reset();
-              this.router.navigateByUrl('/user'); 
-          });
+      if (id !== null) {
+        const formValue = form.getRawValue();
+        
+        let user: updateUsers = {
+            Id: formValue.id, 
+            FirstName: formValue.firstName,
+            LastName: formValue.lastName,
+            Email: formValue.email,
+            Username: formValue.userName,
+        };
+        
+        // add password 
+        if (formValue.password && formValue.password !== '') {
+            // if password is filled
+            user = { ...user, Password: formValue.password };
+        } else if (this.generatedPassword && this.generatedPassword !== '') {
+            // if generated password is available
+            user = { ...user, Password: this.generatedPassword };
+        }
+    
+        this.userService.updateUser(id, user).subscribe((res) => {
+            this.myForm.reset();
+            this.router.navigateByUrl('/user'); 
+        });
       } else {
-          console.log("ID is null");
+        console.log("ID is null");
       }
-  }
-  
+    }
     
   
           
