@@ -6,12 +6,14 @@ import { SignInComponent } from './sign-in/sign-in.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { LogoutComponent } from './logout/logout.component';
+import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 
 
 @NgModule({
   declarations: [
     SignInComponent,
-    LogoutComponent
+    LogoutComponent,
+    UnauthorizedComponent
   ],
   imports: [
     CommonModule,

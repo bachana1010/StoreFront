@@ -52,8 +52,22 @@ export class SignInComponent implements OnInit {
         localStorage.setItem('username',informationUser.username);
         localStorage.setItem('UserRole',informationUser.role);
 
-        this.router.navigateByUrl('/user') 
-        this.loginForm.reset();
+        
+        
+        if (informationUser.role === 'administrator') {
+          this.router.navigateByUrl('/user');
+          this.loginForm.reset();
+
+        } else if (informationUser.role === 'operator') {
+          this.loginForm.reset();
+          this.router.navigateByUrl('/products');
+
+        } else if (informationUser.role === 'manager') {
+
+          this.loginForm.reset();
+          this.router.navigateByUrl('/products');
+        } else {
+        }
       },
       (error) => {
         alert("Login failed: " + error.statusText + ". Try again");

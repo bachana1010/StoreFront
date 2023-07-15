@@ -8,30 +8,26 @@ import { AuthGuard } from '../../guard/auth.guard';
 const routes: Routes = [
   {
     path: '',
-    canActivate: [AuthGuard], 
-
-    data: {
-      UserRole: ['manager'] 
-    },
+    canActivate: [AuthGuard],
+    data: { UserRole: ['manager'] },
     children: [
       {
         path: 'list',
-        component: BalanceComponent,
-        canActivate: [AuthGuard], 
+        component: BalanceComponent
       },
       {
         path: 'goodsout',
-        component: GoodsOutListComponent,
-        canActivate: [AuthGuard], 
+        component: GoodsOutListComponent
       },
       {
         path: 'goodsIn',
-        component: GoodsinListComponent,
-        canActivate: [AuthGuard], 
+        component: GoodsinListComponent
       }
     ]
   }
 ];
+
+
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]

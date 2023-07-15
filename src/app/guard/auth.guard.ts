@@ -10,8 +10,10 @@ import { AuthService } from '../services/auth.service';
       constructor(private authService: AuthService, private router: Router) {}
 
       canActivate(
+        
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot
+        
       ): boolean {
         // if (this.authService.isTokenExpired()) {
         //   // this.authService.clearExpiredToken();
@@ -19,14 +21,19 @@ import { AuthService } from '../services/auth.service';
         //   this.router.navigate(['/login']);
         //   return false;
         // }
+        console.log('AuthGuard canActivate triggered');
+
 
         const currentUserRole = localStorage.getItem('UserRole');
         const requiredRoles = route.data['UserRole'];
-
+        console.log('Route: ', route);
+        console.log('Route data: ', route.data);
+        console.log('User role from local storage: ', currentUserRole);
+        
         if (requiredRoles) {
           const hasPermission = requiredRoles.includes(currentUserRole); 
           if (!hasPermission) {
-            this.router.navigate(['/unauthorized']); 
+            this.router.navigate(['signin/unauthorized']); 
             return false;
           }
         }

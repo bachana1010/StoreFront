@@ -4,7 +4,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { DefaultLayoutComponent } from './containers';
 import { AuthGuard } from '././guard/auth.guard';
 
-
+// import { Page404Component } from './views/pages/page404/page404.component';
+// import { Page500Component } from './views/pages/page500/page500.component';
 
 const routes: Routes = [
   {
@@ -19,21 +20,14 @@ const routes: Routes = [
       title: 'Home'
     },
     children: [
-      // {
-      //   path: 'dashboard',
-      //   loadChildren: () =>
-      //     import('./views/dashboard/dashboard.module').then((m) => m.DashboardModule)
-      // },
+  
       {
         path: 'user',
         loadChildren: () =>
           import('./myModule/user-user/user-user.module').then((m) => m.UserUserModule)
       },
-  
 
-  
-      
-  
+
       {
         path: 'branch',
         loadChildren: () =>

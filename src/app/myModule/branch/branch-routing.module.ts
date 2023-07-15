@@ -10,36 +10,37 @@ import { BranchDataResolverService } from '../../resolvers/branch-data-resolver.
 const routes: Routes = [
   {
     path: '',
-    canActivate: [AuthGuard], 
-    data: {
-      title: 'branch',
-      UserRole: ['administrator']
-    },
+    data: { title: 'branch' },
     children: [
       {
         path: '',
         component: AboutComponent,
-        resolve: {
-          branches: BranchDataResolverService
-        }
+        canActivate: [AuthGuard],
+        data: { UserRole: ['administrator'] },
+        resolve: { branches: BranchDataResolverService }
       },
       {
         path: 'add',
         component: AddBranchComponent,
+        canActivate: [AuthGuard],
         data: {
           title: 'add branch',
+          UserRole: ['administrator']
         },
       },
       {
         path: 'update/:id',
         component: UpdateBranchComponent,
+        canActivate: [AuthGuard],
         data: {
           title: 'update branch',
+          UserRole: ['administrator']
         },
       },
     ]
   },
 ];
+
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
