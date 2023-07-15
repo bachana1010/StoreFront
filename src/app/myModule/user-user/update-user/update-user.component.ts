@@ -83,25 +83,6 @@ constructor(
     }
               
 
-    // getBranches():void{
-    //   this.branchService.getBranches().subscribe((response: BranchApiResponse) => {
-    //     console.log('esaa axali responsi', response);
-    
-    //     this.branches = response;  
-    //     console.log(this.branches);
-
-    //     if (this.DataForUpdate.role === 'operator' || this.DataForUpdate.role === 'manager') {
-    //       this.myForm.get('role').disable();
-    //     }
-    //     console.log(this.DataForUpdate);
-    //     console.log(this.myForm);
-    //     console.log(this.myForm.get('role'));
-
-        
-    //   });
-    // }
-
-
     updateUser(form: FormGroup) {
       const id = this.route.snapshot.paramMap.get('id');
           
@@ -128,7 +109,12 @@ constructor(
         this.userService.updateUser(id, user).subscribe((res) => {
             this.myForm.reset();
             this.router.navigateByUrl('/user'); 
-        });
+            alert(`${user.Username} ${res.message}`);
+
+        },
+        (error) => {
+          // Handle the error 
+          console.log(error)});
       } else {
         console.log("ID is null");
       }

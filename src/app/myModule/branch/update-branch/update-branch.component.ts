@@ -49,21 +49,23 @@ constructor(
       });
         }
 
-      updateBranch(form: FormGroup) {
-        const id = this.route.snapshot.paramMap.get('id');
-
-        if (id !== null) {
-
-          this.branchService.updateBranch(id, form.value).subscribe((res) => {
-            this.myForm.reset();
-            this.router.navigateByUrl('/branch') 
-
-          });
-        } else {
-          console.log("ID is null");
+        updateBranch(form: FormGroup) {
+          const id = this.route.snapshot.paramMap.get('id');
+  
+          if (id !== null) {
+  
+            this.branchService.updateBranch(id, form.value).subscribe((res) => {
+              this.myForm.reset();
+              this.router.navigateByUrl('/branch') 
+              alert(`${res.message}`);
+  
+  
+            });
+          } else {
+            console.log("ID is null");
+          }
         }
-      }
-}
-      
+  }
+          
 
       

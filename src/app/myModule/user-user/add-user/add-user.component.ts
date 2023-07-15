@@ -71,6 +71,8 @@ export class AddUserComponent implements OnInit {
         this.showMessage = true;
         setTimeout(() => this.showMessage = false, 5000); 
         this.router.navigateByUrl('/user');
+        alert(`${data.userName} ${res.message}`);
+
       },
       (err) => {
         console.error('An error occurred:', err);
@@ -82,7 +84,7 @@ export class AddUserComponent implements OnInit {
             alert('An error occurred. Please try again.');
           }
         } else {
-          alert('An error occurred, but no error message was available.');
+          alert(err.error.error);
         }
         this.myForm.reset()
 

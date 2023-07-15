@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AddUserComponent } from './add-user/add-user.component';
 import { UpdateUserComponent } from './update-user/update-user.component';
-import { DeleteUserComponent } from './delete-user/delete-user.component';
 import { AboutComponent } from './about/about.component';
 import { AuthGuard } from '../../guard/auth.guard'; 
 import { UserDataResolverService } from '../../resolvers/user-data-resolver.service';  
@@ -42,14 +41,7 @@ const routes: Routes = [
         },
         canActivate: [AuthGuard], 
       },
-      {
-        path: 'delete',
-        component: DeleteUserComponent,
-        data: {
-          title: 'delete user',
-        },
-        canActivate: [AuthGuard], 
-      }      
+     
     ]
   },
 ];

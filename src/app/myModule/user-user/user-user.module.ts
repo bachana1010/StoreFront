@@ -5,7 +5,6 @@ import { UserUserRoutingModule } from './user-user-routing.module';
 import { AboutComponent } from './about/about.component';
 import { AddUserComponent } from './add-user/add-user.component';
 import { UpdateUserComponent } from './update-user/update-user.component';
-import { DeleteUserComponent } from './delete-user/delete-user.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { CardModule, GridModule, NavModule, UtilitiesModule, TabsModule,TableModule,ButtonModule,FormModule,ButtonGroupModule,ListGroupModule } from '@coreui/angular';
@@ -19,9 +18,7 @@ import { UserDataResolverService } from '../../resolvers/user-data-resolver.serv
   declarations: [
     AboutComponent,
     AddUserComponent,
-    UpdateUserComponent,
-    DeleteUserComponent
-    
+    UpdateUserComponent    
 
   ],
   imports: [

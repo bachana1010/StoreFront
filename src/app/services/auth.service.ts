@@ -50,7 +50,7 @@ export class AuthService {
     // localStorage.removeItem("refreshToken"); 
     localStorage.removeItem("ID"); 
 
-    this.router.navigate(["login"]);
+    this.router.navigate(["/signin"]);
  }
 
   loggedIn(){

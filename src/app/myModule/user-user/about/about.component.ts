@@ -98,11 +98,13 @@ export class AboutComponent implements OnInit {
   navigateToUpdate(userId: number) {
     this.router.navigate(['/user/update', userId]);
   }
-
+  
   deleteUser(item: any): void {
     if (confirm("Are you sure to delete " + item.username + "?")) {
       this.userService.deleteUser(item.id).subscribe(response => {
         this.changePage(this.pageNumber);
+        alert(`${item.username} ${response.message}`);
+
       });
     }
   }

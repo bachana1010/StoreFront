@@ -33,7 +33,7 @@ export class AddBranchComponent implements OnInit {
     })   
   }
 
- addBranch(form: FormGroup): void {  
+  addBranch(form: FormGroup): void {  
     this.branchService.AddBranch(form.value).subscribe((res) => {
       console.log("Response", res);
       this.message = res.message;  
@@ -42,6 +42,9 @@ export class AddBranchComponent implements OnInit {
       this.showMessage = true;
       setTimeout(() => this.showMessage = false, 3000);  
       this.router.navigateByUrl('/branch') 
+      console.log(form.value)
+        alert(`${res.message}`);
+
 
     });
   }
