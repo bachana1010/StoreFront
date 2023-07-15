@@ -102,20 +102,17 @@ export class AboutComponent implements OnInit {
   deleteBranch(branch: GetBranch) {
     if (confirm("Are you sure to delete branch named: " + branch.brancheName + "?")) {
       this.branchService.deleteBranch(branch.id).subscribe(
-        
         (response) => {
           this.onPageChange(this.pageNumber);
-
+          
           alert(`${branch.brancheName} ${response.message}`);
           this.loadBranchData();
-
-        },
-        error => {
-          alert(error.err)
         }
       );
     }
   }
+  
+  
   
 
   applyFilter() {
