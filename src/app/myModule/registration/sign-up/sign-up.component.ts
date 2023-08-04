@@ -1,16 +1,30 @@
-
 import { Component, Renderer2 } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
 import { Router } from '@angular/router';
 import { passwordComplexityValidator } from 'src/app/passwordvalidation/password_validation'; 
+
+export function passwordsMatchValidator(control: AbstractControl): { [key: string]: boolean } | null {
+  const password = control.get('Password');
+  const confirmPassword = control.get('confirmPassword');
+
+  if (!password || !confirmPassword || !password.value || !confirmPassword.value) {
+    return null;
+  }
+
+  if (password.value !== confirmPassword.value) {
+    return { 'passwordsMismatch': true };
+  }
+
+  return null;
+}
+
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.scss']
 })
 export class SignUpComponent {
-
   public registrationForm: FormGroup | any;
   public SendRegistrationForm: any = ""
   public passwordFocused = false; 
@@ -33,7 +47,7 @@ export class SignUpComponent {
       UserName: ["", Validators.required],
       Password: ["", [Validators.required, Validators.minLength(6), passwordComplexityValidator]], 
       confirmPassword: ["", Validators.required]
-    });
+    }, { validators: passwordsMatchValidator });
 
     this.renderer.setStyle(
       document.body, 
@@ -47,11 +61,6 @@ export class SignUpComponent {
   }
 
   signUp(form: FormGroup) {
-    // if (!form.valid) {
-    //   form.markAllAsTouched(); 
-    //   return;
-    // }
-  
     console.log(form.value);
     this.SendRegistrationForm = form.value;
   
@@ -74,8 +83,9 @@ export class SignUpComponent {
           alert("Registration failed: " + err.statusText + ". Try again");
         }
       }
-    );}
-  
+    );
+  }
+
   hasLength(password: string): boolean {
     return password.length >= 6;
   }

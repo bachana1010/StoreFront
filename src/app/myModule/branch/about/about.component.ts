@@ -55,9 +55,11 @@ export class AboutComponent implements OnInit {
   loadBranchData() {
     this.branchService.getBranches(this.filter, this.pageNumber, this.pageSize).subscribe(
       response => {
+
+        this.BranchesData = response.branches;
+      this.totalCount = response.totalCount;
+
         if (response.branches.length === 0) {
-          console.log('No results found');
-          alert('No results found');
 
           this.clearFilter();
         } else {
@@ -107,10 +109,14 @@ export class AboutComponent implements OnInit {
           
           alert(`${branch.brancheName} ${response.message}`);
           this.loadBranchData();
+
         }
       );
+
     }
+
   }
+
   
   
   

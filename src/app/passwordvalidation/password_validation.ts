@@ -18,4 +18,4 @@ export function passwordComplexityValidator(control: AbstractControl): { [key: s
     }
     
     return null;
-  } 
+}
